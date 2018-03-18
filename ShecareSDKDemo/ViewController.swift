@@ -1,0 +1,126 @@
+//
+//  ViewController.swift
+//  ShecareSDKDemo
+//
+//  Created by 罗培克 on 2018/3/15.
+//  Copyright © 2018年 ikangtai.com. All rights reserved.
+//
+
+import UIKit
+import ShecareSDK
+
+class ViewController: UIViewController {
+    
+    fileprivate let models = [["title": "绑定体温计", "id": 0],
+                              ["title": "解绑体温计，使用固定 MAC 地址", "id": 1],
+                              ["title": "打开体温曲线", "id": 2],
+                              ["title": "上传基础生理信息", "id": 3],
+                              ["title": "上传体温", "id": 4],
+                              ["title": "上传经期", "id": 5],
+                              ["title": "初始化用户数据", "id": 6]]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = "首页"
+        self.view.addSubview(tableView)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    let reuseID = "ReuseIDForHomePage"
+    fileprivate let cellHeight: CGFloat = 50
+    fileprivate lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), style: UITableViewStyle.plain)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.reuseID)
+        tableView.bounces = false
+        return tableView
+    }()
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return models.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseID)
+        cell?.textLabel?.text = models[indexPath.row]["title"] as? String
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellID = models[indexPath.row]["id"] as! NSNumber
+        switch cellID {
+        case 0:
+            let vc = ShecareService.shared().bindViewController()
+            self.show(vc, sender: nil)
+        case 1:
+            ShecareService.shared().unBind(macAddress: "C8:FD:19:02:95:7E")
+        case 2:
+            let webVC = YCWebViewController()
+            webVC.urlString = ShecareService.shared().temperatureCharts()
+            webVC.title = "体温曲线"
+            self.navigationController?.pushViewController(webVC, animated: true)
+        case 3:
+            let userInfo = YCUserInfoModel(cycleLength: 30, mensLength: 6)
+            ShecareService.shared().upload(userInfo: userInfo) { success in
+                if success {
+                    
+                } else {
+                    
+                }
+            }
+        case 4:
+            let tempModel1 = YCTemperatureModel(temperature: "37.12", measureTime: NSDate(timeIntervalSinceNow: -86_400), deleted: false)
+            let tempModel2 = YCTemperatureModel(temperature: "36.87", measureTime: NSDate(), deleted: false)
+            ShecareService.shared().upload(temperatures: [tempModel1, tempModel2]) { success in
+                if success {
+                    
+                } else {
+                    
+                }
+            }
+        case 5:
+            let startDate = NSDate(timeIntervalSinceNow: -5 * 86_400)
+            let periodModel1 = YCPeriodModel(date: startDate, period: 1, status: 1)
+            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2, status: 1)
+            ShecareService.shared().upload(periods: [periodModel1, periodModel2]) { success in
+                if success {
+                    
+                } else {
+                    
+                }
+            }
+        case 6:
+            let userInfo = YCUserInfoModel(cycleLength: 30, mensLength: 6)
+            let startDate = NSDate(timeIntervalSinceNow: -5 * 86_400)
+            let tempModel1 = YCTemperatureModel(temperature: "37.22", measureTime: startDate, deleted: false)
+            let tempModel2 = YCTemperatureModel(temperature: "36.97", measureTime: NSDate(), deleted: false)
+            let temperatures = [tempModel1, tempModel2]
+            let periodModel1 = YCPeriodModel(date: startDate, period: 1, status: 1)
+            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2, status: 1)
+            let periods = [periodModel1, periodModel2]
+            if ShecareService.shared().needInitData() {
+                ShecareService.shared().initData(temperatures: temperatures, periods: periods, userInfo: userInfo, completion: { (result) in
+                    if result {
+                        //  Shecare SDK 数据初始化成功
+                    } else {
+                        //  Shecare SDK 数据初始化失败
+                    }
+                })
+            }
+        default:
+            break
+        }
+    }
+}
+
