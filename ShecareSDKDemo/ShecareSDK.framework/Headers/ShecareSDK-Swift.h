@@ -214,6 +214,8 @@ enum YCBLEState : NSInteger;
 SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 @interface BLEThermometer : NSObject
 @property (nonatomic, strong) CBPeripheral * _Nullable activePeripheral;
+@property (nonatomic, copy) NSString * _Nonnull firmwareVersion;
+@property (nonatomic, copy) NSString * _Nonnull macAddress;
 @property (nonatomic) BOOL isOADing;
 @property (nonatomic) uint16_t imgVersion;
 @property (nonatomic, weak) id <BLEThermometerDelegate> _Nullable delegate;
