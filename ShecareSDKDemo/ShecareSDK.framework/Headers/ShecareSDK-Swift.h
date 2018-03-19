@@ -378,8 +378,8 @@ SWIFT_CLASS("_TtC10ShecareSDK20YCBindViewController")
 
 SWIFT_PROTOCOL("_TtP10ShecareSDK28YCBindViewControllerDelegate_")
 @protocol YCBindViewControllerDelegate <NSObject>
-- (void)bindViewControllerDidBind:(NSString * _Nonnull)macAddress;
-- (void)bindViewControllerDidFailedToBind:(NSString * _Nonnull)macAddress errorMessage:(NSString * _Nonnull)errorMessage;
+- (void)bindViewController:(YCBindViewController * _Nonnull)bindViewController didBind:(NSString * _Nonnull)macAddress;
+- (void)bindViewController:(YCBindViewController * _Nonnull)bindViewController didFailedToBind:(NSString * _Nonnull)macAddress errorMessage:(NSString * _Nonnull)errorMessage;
 @end
 
 
