@@ -173,8 +173,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 #if __has_feature(modules)
 @import ObjectiveC;
-@import CoreBluetooth;
 @import Foundation;
+@import CoreBluetooth;
 @import UIKit;
 #endif
 
@@ -208,6 +208,8 @@ typedef SWIFT_ENUM(NSInteger, BLENotifyType) {
 @class CBPeripheral;
 @protocol BLEThermometerDelegate;
 @class CBCharacteristic;
+enum YCBLEConnectType : NSInteger;
+enum YCBLEState : NSInteger;
 
 SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 @interface BLEThermometer : NSObject
@@ -220,6 +222,14 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 @property (nonatomic) NSInteger oadResponseCount;
 @property (nonatomic, copy) void (^ _Nullable oadAction)(BLEThermometer * _Nonnull, NSInteger);
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
+/// 单例
++ (BLEThermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)connectThermometerWithType:(enum YCBLEConnectType)type macList:(NSString * _Nonnull)macList SWIFT_WARN_UNUSED_RESULT;
+- (void)stopScan;
+- (enum YCBLEState)bleState SWIFT_WARN_UNUSED_RESULT;
+- (void)disconnectActiveThermometer;
+- (void)asynchroizationTimeFromLocalWithDate:(NSDate * _Nonnull)date;
+- (void)setNotifyValueWithType:(enum BLENotifyType)type value:(uint8_t)value;
 @end
 
 @class CBService;
