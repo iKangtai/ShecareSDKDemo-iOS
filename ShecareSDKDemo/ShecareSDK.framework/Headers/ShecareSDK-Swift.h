@@ -206,6 +206,7 @@ typedef SWIFT_ENUM(NSInteger, BLENotifyType) {
 };
 
 @class CBPeripheral;
+@protocol BLEThermometerDelegate;
 @class CBCharacteristic;
 
 SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
@@ -213,6 +214,7 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 @property (nonatomic, strong) CBPeripheral * _Nullable activePeripheral;
 @property (nonatomic) BOOL isOADing;
 @property (nonatomic) uint16_t imgVersion;
+@property (nonatomic, weak) id <BLEThermometerDelegate> _Nullable delegate;
 @property (nonatomic, strong) CBCharacteristic * _Nullable imageTypeChar;
 @property (nonatomic, strong) CBCharacteristic * _Nullable oadBlockRequestChar;
 @property (nonatomic) NSInteger oadResponseCount;
