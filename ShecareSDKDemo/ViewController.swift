@@ -42,6 +42,40 @@ class ViewController: UIViewController {
     }()
 }
 
+extension ViewController {
+    public func showAlert(title: String?,
+                                message: String?,
+                                confirmHandler: ((UIAlertAction) -> Void)?,
+                                cancelHandler: ((UIAlertAction) -> Void)?) {
+        
+        let alertC = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let confirmAct1 = UIAlertAction(title: "确定",
+                                        style: UIAlertActionStyle.default,
+                                        handler: confirmHandler)
+        alertC.addAction(confirmAct1)
+        if cancelHandler != nil {
+            let cancelAct = UIAlertAction(title: "取消",
+                                          style: UIAlertActionStyle.default,
+                                          handler: cancelHandler)
+            alertC.addAction(cancelAct)
+        }
+        
+        DispatchQueue.main.async {
+            //  避免重复弹出同一个弹窗
+            let currentVC = UIViewController.currentViewController()
+            if currentVC.isKind(of: type(of: UIAlertController())) {
+                if let currentAlertC = currentVC as? UIAlertController {
+                    if currentAlertC.title == title && currentAlertC.message == message {
+                        return
+                    }
+                }
+            }
+            print("===> Show alert with title: " + (title ?? "nil") + ", message: " + (message ?? "nil"))
+            currentVC.present(alertC, animated: true, completion: nil)
+        }
+    }
+}
+
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return models.count
@@ -74,9 +108,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let userInfo = YCUserInfoModel(cycleLength: 30, mensLength: 6)
             ShecareService.shared().upload(userInfo: userInfo) { success in
                 if success {
-                    
+                    self.showAlert(title: "温馨提示", message: "生理信息上传成功！", confirmHandler: nil, cancelHandler: nil)
                 } else {
-                    
+                    self.showAlert(title: "温馨提示", message: "生理信息上传失败！", confirmHandler: nil, cancelHandler: nil)
                 }
             }
         case 4:
@@ -84,9 +118,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let tempModel2 = YCTemperatureModel(temperature: "36.87", measureTime: NSDate(), deleted: false)
             ShecareService.shared().upload(temperatures: [tempModel1, tempModel2]) { success in
                 if success {
-                    
+                    self.showAlert(title: "温馨提示", message: "温度上传成功！", confirmHandler: nil, cancelHandler: nil)
                 } else {
-                    
+                    self.showAlert(title: "温馨提示", message: "温度上传失败！", confirmHandler: nil, cancelHandler: nil)
                 }
             }
         case 5:
@@ -95,9 +129,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let periodModel2 = YCPeriodModel(date: NSDate(), period: 2, status: 1)
             ShecareService.shared().upload(periods: [periodModel1, periodModel2]) { success in
                 if success {
-                    
+                    self.showAlert(title: "温馨提示", message: "经期信息上传成功！", confirmHandler: nil, cancelHandler: nil)
                 } else {
-                    
+                    self.showAlert(title: "温馨提示", message: "经期信息上传失败！", confirmHandler: nil, cancelHandler: nil)
                 }
             }
         case 6:
@@ -113,8 +147,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 ShecareService.shared().initData(temperatures: temperatures, periods: periods, userInfo: userInfo, completion: { (result) in
                     if result {
                         //  Shecare SDK 数据初始化成功
+                        self.showAlert(title: "温馨提示", message: "初始化成功！", confirmHandler: nil, cancelHandler: nil)
                     } else {
                         //  Shecare SDK 数据初始化失败
+                        self.showAlert(title: "温馨提示", message: "初始化失败！", confirmHandler: nil, cancelHandler: nil)
                     }
                 })
             }
