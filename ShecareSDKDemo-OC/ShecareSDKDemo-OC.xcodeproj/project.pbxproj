@@ -1,0 +1,575 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9AC0BE9205FC8030082CE24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC0BE8205FC8030082CE24 /* AppDelegate.m */; };
+		C9AC0BEC205FC8030082CE24 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC0BEB205FC8030082CE24 /* ViewController.m */; };
+		C9AC0BF1205FC8030082CE24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9AC0BF0205FC8030082CE24 /* Assets.xcassets */; };
+		C9AC0BF4205FC8030082CE24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9AC0BF2205FC8030082CE24 /* LaunchScreen.storyboard */; };
+		C9AC0BF7205FC8030082CE24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC0BF6205FC8030082CE24 /* main.m */; };
+		C9AC0C01205FC8030082CE24 /* ShecareSDKDemo_OCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC0C00205FC8030082CE24 /* ShecareSDKDemo_OCTests.m */; };
+		C9AC0C0C205FC8030082CE24 /* ShecareSDKDemo_OCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC0C0B205FC8030082CE24 /* ShecareSDKDemo_OCUITests.m */; };
+		C9AC0C5D205FCFF40082CE24 /* ShecareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC0C5C205FCFF40082CE24 /* ShecareSDK.framework */; };
+		C9AC0C61205FD00C0082CE24 /* ShecareSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C9AC0C5C205FCFF40082CE24 /* ShecareSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9AC0BFD205FC8030082CE24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AC0BDC205FC8030082CE24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9AC0BE3205FC8030082CE24;
+			remoteInfo = "ShecareSDKDemo-OC";
+		};
+		C9AC0C08205FC8030082CE24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9AC0BDC205FC8030082CE24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9AC0BE3205FC8030082CE24;
+			remoteInfo = "ShecareSDKDemo-OC";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C9AC0C62205FD00C0082CE24 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C9AC0C61205FD00C0082CE24 /* ShecareSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C9AC0BE4205FC8030082CE24 /* ShecareSDKDemo-OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShecareSDKDemo-OC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9AC0BE7205FC8030082CE24 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C9AC0BE8205FC8030082CE24 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C9AC0BEA205FC8030082CE24 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C9AC0BEB205FC8030082CE24 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C9AC0BF0205FC8030082CE24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C9AC0BF3205FC8030082CE24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C9AC0BF5205FC8030082CE24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9AC0BF6205FC8030082CE24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9AC0BFC205FC8030082CE24 /* ShecareSDKDemo-OCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ShecareSDKDemo-OCTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9AC0C00205FC8030082CE24 /* ShecareSDKDemo_OCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShecareSDKDemo_OCTests.m; sourceTree = "<group>"; };
+		C9AC0C02205FC8030082CE24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9AC0C07205FC8030082CE24 /* ShecareSDKDemo-OCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ShecareSDKDemo-OCUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9AC0C0B205FC8030082CE24 /* ShecareSDKDemo_OCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShecareSDKDemo_OCUITests.m; sourceTree = "<group>"; };
+		C9AC0C0D205FC8030082CE24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9AC0C5C205FCFF40082CE24 /* ShecareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShecareSDK.framework; path = "ShecareSDKDemo-OC/ShecareSDK.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9AC0BE1205FC8030082CE24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9AC0C5D205FCFF40082CE24 /* ShecareSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9AC0BF9205FC8030082CE24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9AC0C04205FC8030082CE24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9AC0BDB205FC8030082CE24 = {
+			isa = PBXGroup;
+			children = (
+				C9AC0C5C205FCFF40082CE24 /* ShecareSDK.framework */,
+				C9AC0BE6205FC8030082CE24 /* ShecareSDKDemo-OC */,
+				C9AC0BFF205FC8030082CE24 /* ShecareSDKDemo-OCTests */,
+				C9AC0C0A205FC8030082CE24 /* ShecareSDKDemo-OCUITests */,
+				C9AC0BE5205FC8030082CE24 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9AC0BE5205FC8030082CE24 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9AC0BE4205FC8030082CE24 /* ShecareSDKDemo-OC.app */,
+				C9AC0BFC205FC8030082CE24 /* ShecareSDKDemo-OCTests.xctest */,
+				C9AC0C07205FC8030082CE24 /* ShecareSDKDemo-OCUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9AC0BE6205FC8030082CE24 /* ShecareSDKDemo-OC */ = {
+			isa = PBXGroup;
+			children = (
+				C9AC0BE7205FC8030082CE24 /* AppDelegate.h */,
+				C9AC0BE8205FC8030082CE24 /* AppDelegate.m */,
+				C9AC0BEA205FC8030082CE24 /* ViewController.h */,
+				C9AC0BEB205FC8030082CE24 /* ViewController.m */,
+				C9AC0BF0205FC8030082CE24 /* Assets.xcassets */,
+				C9AC0BF2205FC8030082CE24 /* LaunchScreen.storyboard */,
+				C9AC0BF5205FC8030082CE24 /* Info.plist */,
+				C9AC0BF6205FC8030082CE24 /* main.m */,
+			);
+			path = "ShecareSDKDemo-OC";
+			sourceTree = "<group>";
+		};
+		C9AC0BFF205FC8030082CE24 /* ShecareSDKDemo-OCTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9AC0C00205FC8030082CE24 /* ShecareSDKDemo_OCTests.m */,
+				C9AC0C02205FC8030082CE24 /* Info.plist */,
+			);
+			path = "ShecareSDKDemo-OCTests";
+			sourceTree = "<group>";
+		};
+		C9AC0C0A205FC8030082CE24 /* ShecareSDKDemo-OCUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C9AC0C0B205FC8030082CE24 /* ShecareSDKDemo_OCUITests.m */,
+				C9AC0C0D205FC8030082CE24 /* Info.plist */,
+			);
+			path = "ShecareSDKDemo-OCUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C9AC0BE3205FC8030082CE24 /* ShecareSDKDemo-OC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9AC0C10205FC8030082CE24 /* Build configuration list for PBXNativeTarget "ShecareSDKDemo-OC" */;
+			buildPhases = (
+				C9AC0BE0205FC8030082CE24 /* Sources */,
+				C9AC0BE1205FC8030082CE24 /* Frameworks */,
+				C9AC0BE2205FC8030082CE24 /* Resources */,
+				C9AC0C62205FD00C0082CE24 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ShecareSDKDemo-OC";
+			productName = "ShecareSDKDemo-OC";
+			productReference = C9AC0BE4205FC8030082CE24 /* ShecareSDKDemo-OC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C9AC0BFB205FC8030082CE24 /* ShecareSDKDemo-OCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9AC0C13205FC8030082CE24 /* Build configuration list for PBXNativeTarget "ShecareSDKDemo-OCTests" */;
+			buildPhases = (
+				C9AC0BF8205FC8030082CE24 /* Sources */,
+				C9AC0BF9205FC8030082CE24 /* Frameworks */,
+				C9AC0BFA205FC8030082CE24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9AC0BFE205FC8030082CE24 /* PBXTargetDependency */,
+			);
+			name = "ShecareSDKDemo-OCTests";
+			productName = "ShecareSDKDemo-OCTests";
+			productReference = C9AC0BFC205FC8030082CE24 /* ShecareSDKDemo-OCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C9AC0C06205FC8030082CE24 /* ShecareSDKDemo-OCUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9AC0C16205FC8030082CE24 /* Build configuration list for PBXNativeTarget "ShecareSDKDemo-OCUITests" */;
+			buildPhases = (
+				C9AC0C03205FC8030082CE24 /* Sources */,
+				C9AC0C04205FC8030082CE24 /* Frameworks */,
+				C9AC0C05205FC8030082CE24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9AC0C09205FC8030082CE24 /* PBXTargetDependency */,
+			);
+			name = "ShecareSDKDemo-OCUITests";
+			productName = "ShecareSDKDemo-OCUITests";
+			productReference = C9AC0C07205FC8030082CE24 /* ShecareSDKDemo-OCUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9AC0BDC205FC8030082CE24 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "北京爱康泰科技有限责任公司";
+				TargetAttributes = {
+					C9AC0BE3205FC8030082CE24 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					C9AC0BFB205FC8030082CE24 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C9AC0BE3205FC8030082CE24;
+					};
+					C9AC0C06205FC8030082CE24 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C9AC0BE3205FC8030082CE24;
+					};
+				};
+			};
+			buildConfigurationList = C9AC0BDF205FC8030082CE24 /* Build configuration list for PBXProject "ShecareSDKDemo-OC" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C9AC0BDB205FC8030082CE24;
+			productRefGroup = C9AC0BE5205FC8030082CE24 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9AC0BE3205FC8030082CE24 /* ShecareSDKDemo-OC */,
+				C9AC0BFB205FC8030082CE24 /* ShecareSDKDemo-OCTests */,
+				C9AC0C06205FC8030082CE24 /* ShecareSDKDemo-OCUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9AC0BE2205FC8030082CE24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9AC0BF4205FC8030082CE24 /* LaunchScreen.storyboard in Resources */,
+				C9AC0BF1205FC8030082CE24 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9AC0BFA205FC8030082CE24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9AC0C05205FC8030082CE24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9AC0BE0205FC8030082CE24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9AC0BEC205FC8030082CE24 /* ViewController.m in Sources */,
+				C9AC0BF7205FC8030082CE24 /* main.m in Sources */,
+				C9AC0BE9205FC8030082CE24 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9AC0BF8205FC8030082CE24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9AC0C01205FC8030082CE24 /* ShecareSDKDemo_OCTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9AC0C03205FC8030082CE24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9AC0C0C205FC8030082CE24 /* ShecareSDKDemo_OCUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9AC0BFE205FC8030082CE24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9AC0BE3205FC8030082CE24 /* ShecareSDKDemo-OC */;
+			targetProxy = C9AC0BFD205FC8030082CE24 /* PBXContainerItemProxy */;
+		};
+		C9AC0C09205FC8030082CE24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9AC0BE3205FC8030082CE24 /* ShecareSDKDemo-OC */;
+			targetProxy = C9AC0C08205FC8030082CE24 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C9AC0BF2205FC8030082CE24 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9AC0BF3205FC8030082CE24 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9AC0C0E205FC8030082CE24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C9AC0C0F205FC8030082CE24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9AC0C11205FC8030082CE24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShecareSDKDemo-OC",
+				);
+				INFOPLIST_FILE = "ShecareSDKDemo-OC/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ikangtai.ShecareSDKDemo-OC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C9AC0C12205FC8030082CE24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShecareSDKDemo-OC",
+				);
+				INFOPLIST_FILE = "ShecareSDKDemo-OC/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ikangtai.ShecareSDKDemo-OC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C9AC0C14205FC8030082CE24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				INFOPLIST_FILE = "ShecareSDKDemo-OCTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ikangtai.ShecareSDKDemo-OCTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShecareSDKDemo-OC.app/ShecareSDKDemo-OC";
+			};
+			name = Debug;
+		};
+		C9AC0C15205FC8030082CE24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				INFOPLIST_FILE = "ShecareSDKDemo-OCTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ikangtai.ShecareSDKDemo-OCTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShecareSDKDemo-OC.app/ShecareSDKDemo-OC";
+			};
+			name = Release;
+		};
+		C9AC0C17205FC8030082CE24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				INFOPLIST_FILE = "ShecareSDKDemo-OCUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ikangtai.ShecareSDKDemo-OCUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ShecareSDKDemo-OC";
+			};
+			name = Debug;
+		};
+		C9AC0C18205FC8030082CE24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				INFOPLIST_FILE = "ShecareSDKDemo-OCUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ikangtai.ShecareSDKDemo-OCUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "ShecareSDKDemo-OC";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9AC0BDF205FC8030082CE24 /* Build configuration list for PBXProject "ShecareSDKDemo-OC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9AC0C0E205FC8030082CE24 /* Debug */,
+				C9AC0C0F205FC8030082CE24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9AC0C10205FC8030082CE24 /* Build configuration list for PBXNativeTarget "ShecareSDKDemo-OC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9AC0C11205FC8030082CE24 /* Debug */,
+				C9AC0C12205FC8030082CE24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9AC0C13205FC8030082CE24 /* Build configuration list for PBXNativeTarget "ShecareSDKDemo-OCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9AC0C14205FC8030082CE24 /* Debug */,
+				C9AC0C15205FC8030082CE24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9AC0C16205FC8030082CE24 /* Build configuration list for PBXNativeTarget "ShecareSDKDemo-OCUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9AC0C17205FC8030082CE24 /* Debug */,
+				C9AC0C18205FC8030082CE24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9AC0BDC205FC8030082CE24 /* Project object */;
+}
