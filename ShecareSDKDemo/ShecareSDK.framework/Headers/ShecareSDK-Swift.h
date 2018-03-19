@@ -234,14 +234,6 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 - (void)setNotifyValueWithType:(enum BLENotifyType)type value:(uint8_t)value;
 @end
 
-@class CBService;
-
-@interface BLEThermometer (SWIFT_EXTENSION(ShecareSDK)) <CBPeripheralDelegate>
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-@end
-
 @class CBCentralManager;
 @class NSNumber;
 
@@ -252,6 +244,14 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 - (void)centralManager:(CBCentralManager * _Nonnull)central didConnectPeripheral:(CBPeripheral * _Nonnull)peripheral;
 - (void)centralManager:(CBCentralManager * _Nonnull)central didFailToConnectPeripheral:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 - (void)centralManager:(CBCentralManager * _Nonnull)central didDisconnectPeripheral:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
+@end
+
+@class CBService;
+
+@interface BLEThermometer (SWIFT_EXTENSION(ShecareSDK)) <CBPeripheralDelegate>
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
 @end
 
 @class YCTemperatureModel;
@@ -282,15 +282,23 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 
 @class YCPeriodModel;
 @class YCUserInfoModel;
-@class UINavigationController;
 
 SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 @interface ShecareService : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 /// 单例
 + (ShecareService * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// 设置 UserID
+/// \param identifier 需保证同一个 appID 下的唯一性
+///
 - (void)setUserIdentifier:(NSString * _Nonnull)identifier;
+/// 设置 appID
+/// \param identifier 由 SaaS 服务端提供
+///
 - (void)setApplicationIdentifier:(NSString * _Nonnull)identifier;
+/// 设置 appSecret
+/// \param identifier 由 SaaS 服务端提供
+///
 - (void)setApplicationSecret:(NSString * _Nonnull)identifier;
 - (BOOL)needInitData SWIFT_WARN_UNUSED_RESULT;
 - (void)initDataWithTemperatures:(NSArray<YCTemperatureModel *> * _Nullable)temperatures periods:(NSArray<YCPeriodModel *> * _Nullable)periods userInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion SWIFT_METHOD_FAMILY(none);
@@ -298,7 +306,6 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 - (void)uploadWithPeriods:(NSArray<YCPeriodModel *> * _Nullable)periods completion:(void (^ _Nonnull)(BOOL))completion;
 - (void)uploadWithUserInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion;
 - (NSString * _Nonnull)temperatureCharts SWIFT_WARN_UNUSED_RESULT;
-- (UINavigationController * _Nonnull)bindViewController SWIFT_WARN_UNUSED_RESULT;
 - (void)unBindWithMacAddress:(NSString * _Nonnull)macAddress;
 @end
 
@@ -349,6 +356,31 @@ typedef SWIFT_ENUM(NSInteger, YCBLEState) {
   YCBLEStatePoweredOff = 4,
   YCBLEStateResetting = 5,
 };
+
+@protocol YCBindViewControllerDelegate;
+@class NSBundle;
+@class NSCoder;
+
+SWIFT_CLASS("_TtC10ShecareSDK20YCBindViewController")
+@interface YCBindViewController : UIViewController
+@property (nonatomic, weak) id <YCBindViewControllerDelegate> _Nullable delegate;
+- (void)viewDidLoad;
+- (void)viewDidDisappear:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+SWIFT_PROTOCOL("_TtP10ShecareSDK28YCBindViewControllerDelegate_")
+@protocol YCBindViewControllerDelegate <NSObject>
+- (void)bindViewControllerDidBind:(NSString * _Nonnull)macAddress;
+- (void)bindViewControllerDidFailedToBind:(NSString * _Nonnull)macAddress errorMessage:(NSString * _Nonnull)errorMessage;
+@end
 
 
 SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
