@@ -197,11 +197,12 @@ typedef SWIFT_ENUM(NSInteger, BLEFirmwareImageType) {
   BLEFirmwareImageTypeTypeB = 2,
 };
 
-typedef SWIFT_ENUM(NSInteger, BLEMeasureFlag) {
-  BLEMeasureFlagOnline = 0,
-  BLEMeasureFlagOfflineBegin = 1,
-  BLEMeasureFlagOfflineEnd = 2,
-  BLEMeasureFlagUnknown = 3,
+typedef SWIFT_ENUM(NSInteger, BLENotifyType) {
+  BLENotifyTypeSetTemperatureUnitC = 0,
+  BLENotifyTypeSetTemperatureUnitF = 1,
+  BLENotifyTypeTransmitTemperature = 2,
+  BLENotifyTypeTemperatureCount = 3,
+  BLENotifyTypeThermometerPower = 4,
 };
 
 @class CBPeripheral;
@@ -219,14 +220,6 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
-@class CBService;
-
-@interface BLEThermometer (SWIFT_EXTENSION(ShecareSDK)) <CBPeripheralDelegate>
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
-@end
-
 @class CBCentralManager;
 @class NSNumber;
 
@@ -239,7 +232,15 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 - (void)centralManager:(CBCentralManager * _Nonnull)central didDisconnectPeripheral:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 @end
 
-@class NSDate;
+@class CBService;
+
+@interface BLEThermometer (SWIFT_EXTENSION(ShecareSDK)) <CBPeripheralDelegate>
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+@end
+
+@class YCTemperatureModel;
 
 SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 @protocol BLEThermometerDelegate <NSObject>
@@ -249,7 +250,7 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didConnect:(CBPeripheral * _Nonnull)peripheral;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didFailToConnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didDisconnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
-- (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didUpload:(double)temperature time:(NSDate * _Nonnull)time flag:(enum BLEMeasureFlag)flag;
+- (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didUpload:(NSArray<YCTemperatureModel *> * _Nonnull)temperatures;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didSetTemperatureUnit:(BOOL)success;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didGetFirmwareVersion:(NSString * _Nonnull)firmwareVersion;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didSetThermometerTime:(BOOL)success;
@@ -296,32 +297,6 @@ SWIFT_CLASS("_TtC10ShecareSDK15SessionDelegate")
 @end
 
 @class NSURLSession;
-@class NSURLAuthenticationChallenge;
-@class NSURLCredential;
-
-@interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionDelegate>
-/// Tells the delegate that the session has been invalidated.
-/// \param session The session object that was invalidated.
-///
-/// \param error The error that caused invalidation, or nil if the invalidation was explicit.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session didBecomeInvalidWithError:(NSError * _Nullable)error;
-/// Requests credentials from the delegate in response to a session-level authentication request from the
-/// remote server.
-/// \param session The session containing the task that requested authentication.
-///
-/// \param challenge An object that contains the request for authentication.
-///
-/// \param completionHandler A handler that your delegate method must call providing the disposition
-/// and credential.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(enum NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
-/// Tells the delegate that all messages enqueued for a session have been delivered.
-/// \param session The session that no longer has any outstanding requests.
-///
-- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession * _Nonnull)session;
-@end
-
 @class NSURLSessionDownloadTask;
 
 @interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionDownloadDelegate>
@@ -364,6 +339,32 @@ SWIFT_CLASS("_TtC10ShecareSDK15SessionDelegate")
 /// If this header was not provided, the value is NSURLSessionTransferSizeUnknown.
 ///
 - (void)URLSession:(NSURLSession * _Nonnull)session downloadTask:(NSURLSessionDownloadTask * _Nonnull)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes;
+@end
+
+@class NSURLAuthenticationChallenge;
+@class NSURLCredential;
+
+@interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionDelegate>
+/// Tells the delegate that the session has been invalidated.
+/// \param session The session object that was invalidated.
+///
+/// \param error The error that caused invalidation, or nil if the invalidation was explicit.
+///
+- (void)URLSession:(NSURLSession * _Nonnull)session didBecomeInvalidWithError:(NSError * _Nullable)error;
+/// Requests credentials from the delegate in response to a session-level authentication request from the
+/// remote server.
+/// \param session The session containing the task that requested authentication.
+///
+/// \param challenge An object that contains the request for authentication.
+///
+/// \param completionHandler A handler that your delegate method must call providing the disposition
+/// and credential.
+///
+- (void)URLSession:(NSURLSession * _Nonnull)session didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(enum NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
+/// Tells the delegate that all messages enqueued for a session have been delivered.
+/// \param session The session that no longer has any outstanding requests.
+///
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession * _Nonnull)session;
 @end
 
 @class NSURLSessionDataTask;
@@ -549,6 +550,30 @@ SWIFT_CLASS("_TtC10ShecareSDK12TaskDelegate")
 
 
 
+
+/// 蓝牙连接类型
+typedef SWIFT_ENUM(NSInteger, YCBLEConnectType) {
+/// 绑定页的连接，可以连接所有设备
+  YCBLEConnectTypeBinding = 0,
+/// 非绑定页的连接，只能连接已绑定的设备
+  YCBLEConnectTypeNotBinding = 1,
+};
+
+typedef SWIFT_ENUM(NSInteger, YCBLEMeasureFlag) {
+  YCBLEMeasureFlagOnline = 0,
+  YCBLEMeasureFlagOfflineBegin = 1,
+  YCBLEMeasureFlagOfflineEnd = 2,
+  YCBLEMeasureFlagUnknown = 3,
+};
+
+typedef SWIFT_ENUM(NSInteger, YCBLEState) {
+  YCBLEStateValid = 0,
+  YCBLEStateUnknown = 1,
+  YCBLEStateUnsupported = 2,
+  YCBLEStateUnauthorized = 3,
+  YCBLEStatePoweredOff = 4,
+  YCBLEStateResetting = 5,
+};
 
 
 SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")

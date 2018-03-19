@@ -23,10 +23,7 @@ class YCBindVCTests: XCTestCase {
     }
     
     func testBindViewShow() {
-        let bindVC = ShecareService.bindViewController()
-        RunLoop.main.run(until: Date(timeIntervalSinceNow: TimeInterval(3)))
-        UIViewController.currentViewController().show(bindVC, sender: nil)
-        RunLoop.main.run(until: Date(timeIntervalSinceNow: TimeInterval(3)))
+        
     }
     
     func testPerformanceExample() {

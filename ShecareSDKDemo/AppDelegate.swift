@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return BLEThermometer.shared()
     }()
     var bleConnectType: YCBLEConnectType = .notBinding
-    var validTemperatures = [YCTemperatureModel]()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -59,19 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         bleThermometer.delegate = self
         scanForThermometer(type: bleConnectType)
     }
-    
-    fileprivate func bleThermometer(didUploadOnline model: YCTemperatureModel) {
-        let temperature = Double(model.temperature) ?? 0.0
-        if temperature < 34.0 {
-            print("Temperature is too low, model: %@", model)
-            return
-        } else if (temperature > 42 && temperature < 80) || temperature > 120.0 {
-            print("Temperature is too high, model: %@", model)
-            return
-        }
-        
-        //  Save to DB
-    }
 
 }
 
@@ -112,42 +98,14 @@ extension AppDelegate: BLEThermometerDelegate {
     func bleThermometer(_ bleThermometer: BLEThermometer,
                         didDisconnect peripheral: CBPeripheral,
                         error: Error?) {
-        validTemperatures.removeAll()
         scanForThermometer(type: bleConnectType)
     }
     
     func bleThermometer(_ bleThermometer: BLEThermometer,
-                        didUpload temperature: Double,
-                        time: NSDate,
-                        flag: BLEMeasureFlag) {
-        print("\n******* temperature: \(temperature), time: \(time), flag: \(flag)")
+                        didUpload temperatures: [YCTemperatureModel]) {
+        print("\n******* temperatures: " + temperatures.description + " ********\n")
         
-        let model = YCTemperatureModel(temperature: "\(temperature)", measureTime: time, deleted: false)
         
-        validTemperatures.append(model)
-        switch flag {
-        case .offlineBegin:
-            break
-        case .offlineEnd:
-            bleThermometer.setNotifyValue(type: .temperatureCount, value: UInt8(validTemperatures.count))
-            if validTemperatures.count > 1 {
-                //  保存到本地
-            } else {
-                //  二代设备，在线测量
-                if let firstModel = validTemperatures.first {
-                    self.bleThermometer(didUploadOnline: firstModel)
-                }
-            }
-            validTemperatures.removeAll()
-        case .online:
-            //  一代设备 或 额温枪
-            if let firstModel = validTemperatures.first {
-                self.bleThermometer(didUploadOnline: firstModel)
-            }
-            validTemperatures.removeAll()
-        case .unknown:
-            break
-        }
     }
     
     func bleThermometer(_ bleThermometer: BLEThermometer, didSetTemperatureUnit success: Bool) {
