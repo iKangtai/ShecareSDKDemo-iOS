@@ -95,8 +95,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cellID = models[indexPath.row]["id"] as! NSNumber
         switch cellID {
         case 0:
-            let vc = ShecareService.shared().bindViewController()
-            self.show(vc, sender: nil)
+            let vc = YCBindViewController()
+            vc.delegate = self
+            let navC = UINavigationController(rootViewController: vc)
+            self.show(navC, sender: nil)
         case 1:
             ShecareService.shared().unBind(macAddress: "C8:FD:19:02:95:7E")
         case 2:
@@ -157,6 +159,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
+    }
+}
+
+extension ViewController: YCBindViewControllerDelegate {
+    func bindViewController(_ bindViewController: YCBindViewController, didBind macAddress: String) {
+        showAlert(title: "绑定成功", message: macAddress, confirmHandler: { (_) in
+            bindViewController.dismiss(animated: true, completion: nil)
+        }, cancelHandler: nil)
+    }
+    
+    func bindViewController(_ bindViewController: YCBindViewController, didFailedToBind macAddress: String, errorMessage: String) {
+        showAlert(title: "绑定失败", message: macAddress + "\n" + errorMessage, confirmHandler: { (_) in
+            bindViewController.dismiss(animated: true, completion: nil)
+        }, cancelHandler: nil)
     }
 }
 
