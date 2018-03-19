@@ -588,12 +588,6 @@ SWIFT_CLASS("_TtC10ShecareSDK18YCTemperatureModel")
 @end
 
 
-SWIFT_CLASS("_TtC10ShecareSDK22YCThermometerInfoModel")
-@interface YCThermometerInfoModel : NSObject
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
-@end
-
-
 SWIFT_CLASS("_TtC10ShecareSDK15YCUserInfoModel")
 @interface YCUserInfoModel : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
