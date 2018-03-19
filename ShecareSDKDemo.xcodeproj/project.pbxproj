@@ -6,6 +6,20 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C96F5097205F510F0053F3A5 /* CommonCryptoModuleMap */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C96F509A205F510F0053F3A5 /* Build configuration list for PBXAggregateTarget "CommonCryptoModuleMap" */;
+			buildPhases = (
+				C96F509B205F51200053F3A5 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = CommonCryptoModuleMap;
+			productName = CommonCryptoModuleMap;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		C20AC42A205BD2EE004B8F44 /* YCWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20AC425205BD2EE004B8F44 /* YCWebViewController.swift */; };
 		C22C1632205ED33C00D90053 /* ShecareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22C1631205ED33C00D90053 /* ShecareSDK.framework */; };
@@ -32,6 +46,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C2E1C82E205A62BB00454F4C;
 			remoteInfo = ShecareSDKDemo;
+		};
+		C96F509C205F512C0053F3A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2E1C827205A62BB00454F4C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C96F5097205F510F0053F3A5;
+			remoteInfo = CommonCryptoModuleMap;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -161,6 +182,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C96F509D205F512C0053F3A5 /* PBXTargetDependency */,
 			);
 			name = ShecareSDKDemo;
 			productName = ShecareSDKDemo;
@@ -227,6 +249,10 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = C2E1C82E205A62BB00454F4C;
 					};
+					C96F5097205F510F0053F3A5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = C2E1C82A205A62BB00454F4C /* Build configuration list for PBXProject "ShecareSDKDemo" */;
@@ -241,6 +267,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				C96F5097205F510F0053F3A5 /* CommonCryptoModuleMap */,
 				C2E1C82E205A62BB00454F4C /* ShecareSDKDemo */,
 				C2E1C842205A62BB00454F4C /* ShecareSDKDemoTests */,
 				C2E1C84D205A62BB00454F4C /* ShecareSDKDemoUITests */,
@@ -273,6 +300,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C96F509B205F51200053F3A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This if-statement means we'll only run the main script if the CommonCryptoModuleMap directory doesn't exist\n# Because otherwise the rest of the script causes a full recompile for anything where CommonCrypto is a dependency\n# Do a \"Clean Build Folder\" to remove this directory and trigger the rest of the script to run\nif [ -d \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\" ]; then\necho \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap directory already exists, so skipping the rest of the script.\"\nexit 0\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\"\ncat <<EOF > \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap/module.modulemap\"\nmodule CommonCrypto [system] {\n    header \"${SDKROOT}/usr/include/CommonCrypto/CommonCrypto.h\"\n    export *\n}\nEOF";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C2E1C82B205A62BB00454F4C /* Sources */ = {
@@ -314,6 +357,11 @@
 			isa = PBXTargetDependency;
 			target = C2E1C82E205A62BB00454F4C /* ShecareSDKDemo */;
 			targetProxy = C2E1C84F205A62BB00454F4C /* PBXContainerItemProxy */;
+		};
+		C96F509D205F512C0053F3A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C96F5097205F510F0053F3A5 /* CommonCryptoModuleMap */;
+			targetProxy = C96F509C205F512C0053F3A5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -545,6 +593,24 @@
 			};
 			name = Release;
 		};
+		C96F5098205F510F0053F3A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C96F5099205F510F0053F3A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YL5HCBTF4V;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -580,6 +646,15 @@
 			buildConfigurations = (
 				C2E1C85E205A62BB00454F4C /* Debug */,
 				C2E1C85F205A62BB00454F4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C96F509A205F510F0053F3A5 /* Build configuration list for PBXAggregateTarget "CommonCryptoModuleMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C96F5098205F510F0053F3A5 /* Debug */,
+				C96F5099205F510F0053F3A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
