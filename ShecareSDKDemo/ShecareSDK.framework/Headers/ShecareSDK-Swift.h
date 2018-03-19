@@ -220,6 +220,14 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
+@class CBService;
+
+@interface BLEThermometer (SWIFT_EXTENSION(ShecareSDK)) <CBPeripheralDelegate>
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+@end
+
 @class CBCentralManager;
 @class NSNumber;
 
@@ -230,14 +238,6 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 - (void)centralManager:(CBCentralManager * _Nonnull)central didConnectPeripheral:(CBPeripheral * _Nonnull)peripheral;
 - (void)centralManager:(CBCentralManager * _Nonnull)central didFailToConnectPeripheral:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 - (void)centralManager:(CBCentralManager * _Nonnull)central didDisconnectPeripheral:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
-@end
-
-@class CBService;
-
-@interface BLEThermometer (SWIFT_EXTENSION(ShecareSDK)) <CBPeripheralDelegate>
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
-- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
 @end
 
 @class YCTemperatureModel;
@@ -297,6 +297,32 @@ SWIFT_CLASS("_TtC10ShecareSDK15SessionDelegate")
 @end
 
 @class NSURLSession;
+@class NSURLAuthenticationChallenge;
+@class NSURLCredential;
+
+@interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionDelegate>
+/// Tells the delegate that the session has been invalidated.
+/// \param session The session object that was invalidated.
+///
+/// \param error The error that caused invalidation, or nil if the invalidation was explicit.
+///
+- (void)URLSession:(NSURLSession * _Nonnull)session didBecomeInvalidWithError:(NSError * _Nullable)error;
+/// Requests credentials from the delegate in response to a session-level authentication request from the
+/// remote server.
+/// \param session The session containing the task that requested authentication.
+///
+/// \param challenge An object that contains the request for authentication.
+///
+/// \param completionHandler A handler that your delegate method must call providing the disposition
+/// and credential.
+///
+- (void)URLSession:(NSURLSession * _Nonnull)session didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(enum NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
+/// Tells the delegate that all messages enqueued for a session have been delivered.
+/// \param session The session that no longer has any outstanding requests.
+///
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession * _Nonnull)session;
+@end
+
 @class NSURLSessionDownloadTask;
 
 @interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionDownloadDelegate>
@@ -341,30 +367,40 @@ SWIFT_CLASS("_TtC10ShecareSDK15SessionDelegate")
 - (void)URLSession:(NSURLSession * _Nonnull)session downloadTask:(NSURLSessionDownloadTask * _Nonnull)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes;
 @end
 
-@class NSURLAuthenticationChallenge;
-@class NSURLCredential;
+@class NSURLSessionStreamTask;
+@class NSInputStream;
+@class NSOutputStream;
 
-@interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionDelegate>
-/// Tells the delegate that the session has been invalidated.
-/// \param session The session object that was invalidated.
+SWIFT_AVAILABILITY(tvos,introduced=9.0) SWIFT_AVAILABILITY(macos,introduced=10.11) SWIFT_AVAILABILITY(ios,introduced=9.0)
+@interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionStreamDelegate>
+/// Tells the delegate that the read side of the connection has been closed.
+/// \param session The session.
 ///
-/// \param error The error that caused invalidation, or nil if the invalidation was explicit.
+/// \param streamTask The stream task.
 ///
-- (void)URLSession:(NSURLSession * _Nonnull)session didBecomeInvalidWithError:(NSError * _Nullable)error;
-/// Requests credentials from the delegate in response to a session-level authentication request from the
-/// remote server.
-/// \param session The session containing the task that requested authentication.
+- (void)URLSession:(NSURLSession * _Nonnull)session readClosedForStreamTask:(NSURLSessionStreamTask * _Nonnull)streamTask;
+/// Tells the delegate that the write side of the connection has been closed.
+/// \param session The session.
 ///
-/// \param challenge An object that contains the request for authentication.
+/// \param streamTask The stream task.
 ///
-/// \param completionHandler A handler that your delegate method must call providing the disposition
-/// and credential.
+- (void)URLSession:(NSURLSession * _Nonnull)session writeClosedForStreamTask:(NSURLSessionStreamTask * _Nonnull)streamTask;
+/// Tells the delegate that the system has determined that a better route to the host is available.
+/// \param session The session.
 ///
-- (void)URLSession:(NSURLSession * _Nonnull)session didReceiveChallenge:(NSURLAuthenticationChallenge * _Nonnull)challenge completionHandler:(void (^ _Nonnull)(enum NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler;
-/// Tells the delegate that all messages enqueued for a session have been delivered.
-/// \param session The session that no longer has any outstanding requests.
+/// \param streamTask The stream task.
 ///
-- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession * _Nonnull)session;
+- (void)URLSession:(NSURLSession * _Nonnull)session betterRouteDiscoveredForStreamTask:(NSURLSessionStreamTask * _Nonnull)streamTask;
+/// Tells the delegate that the stream task has been completed and provides the unopened stream objects.
+/// \param session The session.
+///
+/// \param streamTask The stream task.
+///
+/// \param inputStream The new input stream.
+///
+/// \param outputStream The new output stream.
+///
+- (void)URLSession:(NSURLSession * _Nonnull)session streamTask:(NSURLSessionStreamTask * _Nonnull)streamTask didBecomeInputStream:(NSInputStream * _Nonnull)inputStream outputStream:(NSOutputStream * _Nonnull)outputStream;
 @end
 
 @class NSURLSessionDataTask;
@@ -415,42 +451,6 @@ SWIFT_CLASS("_TtC10ShecareSDK15SessionDelegate")
 /// handler; otherwise, your app leaks memory.
 ///
 - (void)URLSession:(NSURLSession * _Nonnull)session dataTask:(NSURLSessionDataTask * _Nonnull)dataTask willCacheResponse:(NSCachedURLResponse * _Nonnull)proposedResponse completionHandler:(void (^ _Nonnull)(NSCachedURLResponse * _Nullable))completionHandler;
-@end
-
-@class NSURLSessionStreamTask;
-@class NSInputStream;
-@class NSOutputStream;
-
-SWIFT_AVAILABILITY(tvos,introduced=9.0) SWIFT_AVAILABILITY(macos,introduced=10.11) SWIFT_AVAILABILITY(ios,introduced=9.0)
-@interface SessionDelegate (SWIFT_EXTENSION(ShecareSDK)) <NSURLSessionStreamDelegate>
-/// Tells the delegate that the read side of the connection has been closed.
-/// \param session The session.
-///
-/// \param streamTask The stream task.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session readClosedForStreamTask:(NSURLSessionStreamTask * _Nonnull)streamTask;
-/// Tells the delegate that the write side of the connection has been closed.
-/// \param session The session.
-///
-/// \param streamTask The stream task.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session writeClosedForStreamTask:(NSURLSessionStreamTask * _Nonnull)streamTask;
-/// Tells the delegate that the system has determined that a better route to the host is available.
-/// \param session The session.
-///
-/// \param streamTask The stream task.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session betterRouteDiscoveredForStreamTask:(NSURLSessionStreamTask * _Nonnull)streamTask;
-/// Tells the delegate that the stream task has been completed and provides the unopened stream objects.
-/// \param session The session.
-///
-/// \param streamTask The stream task.
-///
-/// \param inputStream The new input stream.
-///
-/// \param outputStream The new output stream.
-///
-- (void)URLSession:(NSURLSession * _Nonnull)session streamTask:(NSURLSessionStreamTask * _Nonnull)streamTask didBecomeInputStream:(NSInputStream * _Nonnull)inputStream outputStream:(NSOutputStream * _Nonnull)outputStream;
 @end
 
 @class NSURLSessionTask;
@@ -520,6 +520,14 @@ SWIFT_AVAILABILITY(tvos,introduced=9.0) SWIFT_AVAILABILITY(macos,introduced=10.1
 ///
 - (void)URLSession:(NSURLSession * _Nonnull)session task:(NSURLSessionTask * _Nonnull)task didCompleteWithError:(NSError * _Nullable)error;
 @end
+
+
+SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
+@interface ShecareService : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
+@end
+
+
 
 
 /// The task delegate is responsible for handling all delegate callbacks for the underlying task as well as
