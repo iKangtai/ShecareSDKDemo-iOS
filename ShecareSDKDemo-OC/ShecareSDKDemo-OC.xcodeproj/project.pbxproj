@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C290E1EB205FDC0D00A30209 /* YCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C290E1EA205FDC0D00A30209 /* YCWebViewController.m */; };
+		C2AEFDBF205FF5680025A073 /* YCViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2AEFDBE205FF5680025A073 /* YCViewController+Extension.m */; };
 		C9AC0BE9205FC8030082CE24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC0BE8205FC8030082CE24 /* AppDelegate.m */; };
 		C9AC0BEC205FC8030082CE24 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC0BEB205FC8030082CE24 /* ViewController.m */; };
 		C9AC0BF1205FC8030082CE24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9AC0BF0205FC8030082CE24 /* Assets.xcassets */; };
@@ -50,6 +52,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C290E1E9205FDC0D00A30209 /* YCWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCWebViewController.h; sourceTree = "<group>"; };
+		C290E1EA205FDC0D00A30209 /* YCWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCWebViewController.m; sourceTree = "<group>"; };
+		C2AEFDBD205FF5680025A073 /* YCViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "YCViewController+Extension.h"; sourceTree = "<group>"; };
+		C2AEFDBE205FF5680025A073 /* YCViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "YCViewController+Extension.m"; sourceTree = "<group>"; };
 		C9AC0BE4205FC8030082CE24 /* ShecareSDKDemo-OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShecareSDKDemo-OC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AC0BE7205FC8030082CE24 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C9AC0BE8205FC8030082CE24 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -122,6 +128,10 @@
 				C9AC0BE8205FC8030082CE24 /* AppDelegate.m */,
 				C9AC0BEA205FC8030082CE24 /* ViewController.h */,
 				C9AC0BEB205FC8030082CE24 /* ViewController.m */,
+				C290E1E9205FDC0D00A30209 /* YCWebViewController.h */,
+				C290E1EA205FDC0D00A30209 /* YCWebViewController.m */,
+				C2AEFDBD205FF5680025A073 /* YCViewController+Extension.h */,
+				C2AEFDBE205FF5680025A073 /* YCViewController+Extension.m */,
 				C9AC0BF0205FC8030082CE24 /* Assets.xcassets */,
 				C9AC0BF2205FC8030082CE24 /* LaunchScreen.storyboard */,
 				C9AC0BF5205FC8030082CE24 /* Info.plist */,
@@ -282,8 +292,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9AC0BEC205FC8030082CE24 /* ViewController.m in Sources */,
+				C290E1EB205FDC0D00A30209 /* YCWebViewController.m in Sources */,
 				C9AC0BF7205FC8030082CE24 /* main.m in Sources */,
 				C9AC0BE9205FC8030082CE24 /* AppDelegate.m in Sources */,
+				C2AEFDBF205FF5680025A073 /* YCViewController+Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +449,7 @@
 		C9AC0C11205FC8030082CE24 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL5HCBTF4V;
@@ -456,7 +468,7 @@
 		C9AC0C12205FC8030082CE24 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL5HCBTF4V;

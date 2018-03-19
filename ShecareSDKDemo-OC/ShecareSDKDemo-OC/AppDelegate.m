@@ -8,8 +8,11 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import <ShecareSDK/ShecareSDK-Swift.h>
 
-@interface AppDelegate ()
+@interface AppDelegate ()<BLEThermometerDelegate>
+///  蓝牙连接类型
+@property (nonatomic, assign) YCBLEConnectType connectType;
 
 @end
 
@@ -17,6 +20,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self setupShecareService];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
@@ -24,32 +30,89 @@
     return YES;
 }
 
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+- (void)setupShecareService {
+    [[ShecareService shared] setApplicationIdentifier:@"123456"];
+    [[ShecareService shared] setApplicationSecret:@"1"];
+    [[ShecareService shared] setUserIdentifier:@"1001"];
+    [BLEThermometer shared].delegate = self;
+    self.connectType = YCBLEConnectTypeNotBinding;
+    [self scanForThermometer];
 }
 
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)scanForThermometer {
+    //  if the bleutooth availabel to use
+    if ([BLEThermometer shared].bleState == YCBLEStateValid) {
+        if ([BLEThermometer shared].activePeripheral != nil) {
+            NSLog(@"已经连接！");
+            return;
+        }
+        //  start to scan the peripheral
+        if ([[BLEThermometer shared] connectThermometerWithType:self.connectType macList:@"C8:FD:19:02:95:7E,18:93:D7:24:7A:8F"]) {
+            NSLog(@"Has start to scan.");
+        } else {
+            NSLog(@"Start scan Failed!");
+        }
+    }
 }
 
+#pragma mark - BLEThermometerDelegate
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+-(void)bleThermometerDidUpdateState:(BLEThermometer *)bleThermometer {
+    if ([bleThermometer bleState] == YCBLEStateValid) {
+        [self scanForThermometer];
+    } else {
+        bleThermometer.activePeripheral = nil;
+    }
 }
 
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didConnect:(CBPeripheral *)peripheral {
+    
 }
 
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didFailToConnect:(CBPeripheral *)peripheral error:(NSError *)error {
+    [self scanForThermometer];
 }
 
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didDisconnect:(CBPeripheral *)peripheral error:(NSError *)error {
+    [self scanForThermometer];
+}
+
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didUpload:(NSArray<YCTemperatureModel *> *)temperatures {
+    NSLog(@"\n********  temperatures:%@  ********\n", temperatures);
+}
+
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didSetTemperatureUnit:(BOOL)success {
+    
+}
+
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didGetFirmwareVersion:(NSString *)firmwareVersion {
+    bleThermometer.firmwareVersion = firmwareVersion;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [bleThermometer asynchroizationTimeFromLocalWithDate:[NSDate date]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [bleThermometer setNotifyValueWithType:BLENotifyTypeTransmitTemperature value:0];
+        });
+    });
+}
+
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didSetThermometerTime:(BOOL)success {
+    if (success) {
+        NSLog(@"同步时间成功");
+    } else {
+        NSLog(@"同步时间失败");        
+    }
+}
+
+-(void)bleThermometerDidGetTemperature:(BLEThermometer *)bleThermometer {
+    
+}
+
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didGetThermometerPower:(double)value {
+    
+}
+
+-(void)bleThermometer:(BLEThermometer *)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type {
+    
+}
 
 @end

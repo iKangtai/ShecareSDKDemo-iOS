@@ -39,5 +39,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>此 App 需要您的同意才能使用蓝牙</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>bluetooth-central</string>
+    </array>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <!--Not a recommended way, there are better solutions available-->
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 </dict>
 </plist>
