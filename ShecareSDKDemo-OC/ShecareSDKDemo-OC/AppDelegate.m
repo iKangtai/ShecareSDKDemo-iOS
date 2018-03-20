@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import <ShecareSDK/ShecareSDK-Swift.h>
+#import "YCDOConstants.h"
 
 @interface AppDelegate ()<BLEThermometerDelegate>
 ///  蓝牙连接类型
@@ -33,7 +34,7 @@
 - (void)setupShecareService {
     [[ShecareService shared] setApplicationIdentifier:@"123456"];
     [[ShecareService shared] setApplicationSecret:@"1"];
-    [[ShecareService shared] setUserIdentifier:@"1001"];
+    [[ShecareService shared] setUserIdentifier:userIdentifier];
     [BLEThermometer shared].delegate = self;
     self.connectType = YCBLEConnectTypeNotBinding;
     [self scanForThermometer];

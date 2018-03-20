@@ -22,6 +22,26 @@
 
 /* Begin PBXBuildFile section */
 		C20AC42A205BD2EE004B8F44 /* YCWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20AC425205BD2EE004B8F44 /* YCWebViewController.swift */; };
+		C228BB0C2060D4AB0048B8AE /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFA2060D4AB0048B8AE /* TaskDelegate.swift */; };
+		C228BB0D2060D4AB0048B8AE /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFB2060D4AB0048B8AE /* MultipartFormData.swift */; };
+		C228BB0E2060D4AB0048B8AE /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFC2060D4AB0048B8AE /* NetworkReachabilityManager.swift */; };
+		C228BB0F2060D4AB0048B8AE /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFD2060D4AB0048B8AE /* Timeline.swift */; };
+		C228BB102060D4AB0048B8AE /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFE2060D4AB0048B8AE /* DispatchQueue+Alamofire.swift */; };
+		C228BB112060D4AB0048B8AE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFF2060D4AB0048B8AE /* Result.swift */; };
+		C228BB122060D4AB0048B8AE /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB002060D4AB0048B8AE /* ParameterEncoding.swift */; };
+		C228BB132060D4AB0048B8AE /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB012060D4AB0048B8AE /* AFError.swift */; };
+		C228BB142060D4AB0048B8AE /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB022060D4AB0048B8AE /* Validation.swift */; };
+		C228BB152060D4AB0048B8AE /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB032060D4AB0048B8AE /* Notifications.swift */; };
+		C228BB162060D4AB0048B8AE /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB042060D4AB0048B8AE /* Response.swift */; };
+		C228BB172060D4AB0048B8AE /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB052060D4AB0048B8AE /* Alamofire.swift */; };
+		C228BB182060D4AB0048B8AE /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB062060D4AB0048B8AE /* Request.swift */; };
+		C228BB192060D4AB0048B8AE /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB072060D4AB0048B8AE /* SessionManager.swift */; };
+		C228BB1A2060D4AB0048B8AE /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB082060D4AB0048B8AE /* ResponseSerialization.swift */; };
+		C228BB1B2060D4AB0048B8AE /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB092060D4AB0048B8AE /* ServerTrustPolicy.swift */; };
+		C228BB1C2060D4AB0048B8AE /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB0A2060D4AB0048B8AE /* SessionDelegate.swift */; };
+		C228BB1D2060D4AB0048B8AE /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB0B2060D4AB0048B8AE /* SwiftyJSON.swift */; };
+		C228BB3A2060D7280048B8AE /* YCDHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB382060D7280048B8AE /* YCDHTTPClient.swift */; };
+		C228BB3B2060D7280048B8AE /* YCDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BB392060D7280048B8AE /* YCDConstants.swift */; };
 		C2E1C833205A62BB00454F4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1C832205A62BB00454F4C /* AppDelegate.swift */; };
 		C2E1C835205A62BB00454F4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E1C834205A62BB00454F4C /* ViewController.swift */; };
 		C2E1C83A205A62BB00454F4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2E1C839205A62BB00454F4C /* Assets.xcassets */; };
@@ -74,6 +94,26 @@
 /* Begin PBXFileReference section */
 		C20AC37B205B9DC2004B8F44 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C20AC425205BD2EE004B8F44 /* YCWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCWebViewController.swift; sourceTree = "<group>"; };
+		C228BAFA2060D4AB0048B8AE /* TaskDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDelegate.swift; sourceTree = "<group>"; };
+		C228BAFB2060D4AB0048B8AE /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		C228BAFC2060D4AB0048B8AE /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
+		C228BAFD2060D4AB0048B8AE /* Timeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
+		C228BAFE2060D4AB0048B8AE /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
+		C228BAFF2060D4AB0048B8AE /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		C228BB002060D4AB0048B8AE /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		C228BB012060D4AB0048B8AE /* AFError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
+		C228BB022060D4AB0048B8AE /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		C228BB032060D4AB0048B8AE /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		C228BB042060D4AB0048B8AE /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		C228BB052060D4AB0048B8AE /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		C228BB062060D4AB0048B8AE /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		C228BB072060D4AB0048B8AE /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		C228BB082060D4AB0048B8AE /* ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
+		C228BB092060D4AB0048B8AE /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
+		C228BB0A2060D4AB0048B8AE /* SessionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
+		C228BB0B2060D4AB0048B8AE /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		C228BB382060D7280048B8AE /* YCDHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCDHTTPClient.swift; sourceTree = "<group>"; };
+		C228BB392060D7280048B8AE /* YCDConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCDConstants.swift; sourceTree = "<group>"; };
 		C2E1C82F205A62BB00454F4C /* ShecareSDKDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShecareSDKDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2E1C832205A62BB00454F4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C2E1C834205A62BB00454F4C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +156,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C228BAF82060D4AB0048B8AE /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				C228BAF92060D4AB0048B8AE /* Source */,
+			);
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
+		C228BAF92060D4AB0048B8AE /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C228BAFA2060D4AB0048B8AE /* TaskDelegate.swift */,
+				C228BAFB2060D4AB0048B8AE /* MultipartFormData.swift */,
+				C228BAFC2060D4AB0048B8AE /* NetworkReachabilityManager.swift */,
+				C228BAFD2060D4AB0048B8AE /* Timeline.swift */,
+				C228BAFE2060D4AB0048B8AE /* DispatchQueue+Alamofire.swift */,
+				C228BAFF2060D4AB0048B8AE /* Result.swift */,
+				C228BB002060D4AB0048B8AE /* ParameterEncoding.swift */,
+				C228BB012060D4AB0048B8AE /* AFError.swift */,
+				C228BB022060D4AB0048B8AE /* Validation.swift */,
+				C228BB032060D4AB0048B8AE /* Notifications.swift */,
+				C228BB042060D4AB0048B8AE /* Response.swift */,
+				C228BB052060D4AB0048B8AE /* Alamofire.swift */,
+				C228BB062060D4AB0048B8AE /* Request.swift */,
+				C228BB072060D4AB0048B8AE /* SessionManager.swift */,
+				C228BB082060D4AB0048B8AE /* ResponseSerialization.swift */,
+				C228BB092060D4AB0048B8AE /* ServerTrustPolicy.swift */,
+				C228BB0A2060D4AB0048B8AE /* SessionDelegate.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		C2E1C826205A62BB00454F4C = {
 			isa = PBXGroup;
 			children = (
@@ -141,8 +213,12 @@
 			isa = PBXGroup;
 			children = (
 				C2E1C832205A62BB00454F4C /* AppDelegate.swift */,
+				C228BB392060D7280048B8AE /* YCDConstants.swift */,
+				C228BB382060D7280048B8AE /* YCDHTTPClient.swift */,
 				C2E1C834205A62BB00454F4C /* ViewController.swift */,
 				C20AC425205BD2EE004B8F44 /* YCWebViewController.swift */,
+				C228BAF82060D4AB0048B8AE /* Alamofire */,
+				C228BB0B2060D4AB0048B8AE /* SwiftyJSON.swift */,
 				C2E1C839205A62BB00454F4C /* Assets.xcassets */,
 				C2E1C83B205A62BB00454F4C /* LaunchScreen.storyboard */,
 				C2E1C83E205A62BB00454F4C /* Info.plist */,
@@ -324,9 +400,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C228BB112060D4AB0048B8AE /* Result.swift in Sources */,
+				C228BB182060D4AB0048B8AE /* Request.swift in Sources */,
+				C228BB102060D4AB0048B8AE /* DispatchQueue+Alamofire.swift in Sources */,
+				C228BB1B2060D4AB0048B8AE /* ServerTrustPolicy.swift in Sources */,
+				C228BB122060D4AB0048B8AE /* ParameterEncoding.swift in Sources */,
 				C20AC42A205BD2EE004B8F44 /* YCWebViewController.swift in Sources */,
+				C228BB0F2060D4AB0048B8AE /* Timeline.swift in Sources */,
+				C228BB152060D4AB0048B8AE /* Notifications.swift in Sources */,
+				C228BB172060D4AB0048B8AE /* Alamofire.swift in Sources */,
+				C228BB162060D4AB0048B8AE /* Response.swift in Sources */,
 				C2E1C835205A62BB00454F4C /* ViewController.swift in Sources */,
+				C228BB3B2060D7280048B8AE /* YCDConstants.swift in Sources */,
+				C228BB1C2060D4AB0048B8AE /* SessionDelegate.swift in Sources */,
+				C228BB1D2060D4AB0048B8AE /* SwiftyJSON.swift in Sources */,
 				C2E1C833205A62BB00454F4C /* AppDelegate.swift in Sources */,
+				C228BB0C2060D4AB0048B8AE /* TaskDelegate.swift in Sources */,
+				C228BB0E2060D4AB0048B8AE /* NetworkReachabilityManager.swift in Sources */,
+				C228BB1A2060D4AB0048B8AE /* ResponseSerialization.swift in Sources */,
+				C228BB0D2060D4AB0048B8AE /* MultipartFormData.swift in Sources */,
+				C228BB142060D4AB0048B8AE /* Validation.swift in Sources */,
+				C228BB132060D4AB0048B8AE /* AFError.swift in Sources */,
+				C228BB192060D4AB0048B8AE /* SessionManager.swift in Sources */,
+				C228BB3A2060D7280048B8AE /* YCDHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

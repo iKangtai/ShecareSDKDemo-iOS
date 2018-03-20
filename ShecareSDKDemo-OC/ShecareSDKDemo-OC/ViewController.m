@@ -10,6 +10,9 @@
 #import <ShecareSDK/ShecareSDK-Swift.h>
 #import "YCWebViewController.h"
 #import "YCViewController+Extension.h"
+#import "YCDOHTTPClient.h"
+#import "YCDOConstants.h"
+#import "AFNetworking/AFHTTPSessionManager.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, YCBindViewControllerDelegate>
 
@@ -128,6 +131,15 @@
                 [self showAlertWithTitle:@"温馨提示" message:@"数据初始化失败" confirmHandler:nil];
             }
         }];
+    } else if (modelID == 7) {
+        NSString *urlString = [[ShecareService shared] analysisURLString];
+        NSDictionary *params = @{@"userID": userIdentifier};
+        YCDOHTTPClient *httpC = [YCDOHTTPClient sharedClient];
+        [httpC.sessionManager POST:urlString parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"Response: %@", responseObject);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"Error: %@", error);
+        }];
     }
 }
 
@@ -151,6 +163,7 @@
     return @[@{@"title": @"绑定体温计", @"id": @0},
              @{@"title": @"解绑体温计，使用固定 MAC 地址", @"id": @1},
              @{@"title": @"打开体温曲线", @"id": @2},
+             @{@"title": @"访问智能分析接口", @"id": @7},
              @{@"title": @"上传基础生理信息", @"id": @3},
              @{@"title": @"上传体温", @"id": @4},
              @{@"title": @"上传经期", @"id": @5},

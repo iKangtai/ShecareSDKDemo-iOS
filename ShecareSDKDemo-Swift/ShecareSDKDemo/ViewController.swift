@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     fileprivate let models = [["title": "绑定体温计", "id": 0],
                               ["title": "解绑体温计，使用固定 MAC 地址", "id": 1],
                               ["title": "打开体温曲线", "id": 2],
+                              ["title": "访问智能分析接口", "id": 7],
                               ["title": "上传基础生理信息", "id": 3],
                               ["title": "上传体温", "id": 4],
                               ["title": "上传经期", "id": 5],
@@ -163,6 +164,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                 })
             }
+        case 7:
+            let urlStr = ShecareService.shared().analysisURLString()
+            let httpC = YCDHTTPClient.sharedClient
+            let params = ["userId": userIdentifier]
+            httpC.sessionManager?.request(urlStr,
+                                          method: .post,
+                                          parameters: params,
+                                          encoding: JSONEncoding.default,
+                                          headers: httpC.defaultHeaders)
+                .responseJSON(completionHandler: { (response) in
+                    if let error = response.result.error {
+                        print(error.localizedDescription)
+                    } else {
+                        print(JSON(response.result.value ?? httpC.nullResponse))
+                    }
+            })
         default:
             break
         }

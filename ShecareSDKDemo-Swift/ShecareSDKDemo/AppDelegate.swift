@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func setupShecareService(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         ShecareService.shared().setApplicationIdentifier("123456")
         ShecareService.shared().setApplicationSecret("1")
-        ShecareService.shared().setUserIdentifier("1001")
+        ShecareService.shared().setUserIdentifier(userIdentifier)
         bleThermometer.delegate = self
         scanForThermometer(type: bleConnectType)
     }
