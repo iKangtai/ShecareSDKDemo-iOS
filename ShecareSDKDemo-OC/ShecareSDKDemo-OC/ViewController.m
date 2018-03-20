@@ -132,13 +132,12 @@
             }
         }];
     } else if (modelID == 7) {
-        NSString *urlString = [[ShecareService shared] analysisURLString];
-        NSDictionary *params = @{@"userID": userIdentifier};
-        YCDOHTTPClient *httpC = [YCDOHTTPClient sharedClient];
-        [httpC.sessionManager POST:urlString parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"Response: %@", responseObject);
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"Error: %@", error);
+        [[ShecareService shared] analysis:^(NSError * _Nullable error, NSDictionary * _Nullable result) {
+            if (error == nil) {
+                NSLog(@"Response: %@", result);
+            } else {
+                NSLog(@"Error: %@", error);
+            }
         }];
     }
 }

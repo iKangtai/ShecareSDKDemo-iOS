@@ -294,6 +294,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _N
 
 @class YCPeriodModel;
 @class YCUserInfoModel;
+@class NSDictionary;
 
 SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 @interface ShecareService : NSObject
@@ -318,7 +319,7 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 - (void)uploadWithPeriods:(NSArray<YCPeriodModel *> * _Nullable)periods completion:(void (^ _Nonnull)(BOOL))completion;
 - (void)uploadWithUserInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion;
 - (NSString * _Nonnull)temperatureCharts SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nonnull)analysisURLString SWIFT_WARN_UNUSED_RESULT;
+- (void)analysis:(void (^ _Nonnull)(NSError * _Nullable, NSDictionary * _Nullable))completion;
 - (void)unBindWithMacAddress:(NSString * _Nonnull)macAddress completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 

@@ -165,20 +165,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 })
             }
         case 7:
-            let urlStr = ShecareService.shared().analysisURLString()
-            let httpC = YCDHTTPClient.sharedClient
-            let params = ["userId": userIdentifier]
-            httpC.sessionManager?.request(urlStr,
-                                          method: .post,
-                                          parameters: params,
-                                          encoding: JSONEncoding.default,
-                                          headers: httpC.defaultHeaders)
-                .responseJSON(completionHandler: { (response) in
-                    if let error = response.result.error {
-                        print(error.localizedDescription)
-                    } else {
-                        print(JSON(response.result.value ?? httpC.nullResponse))
-                    }
+            ShecareService.shared().analysis({ (error, result) in
+                if let error = error {
+                    print(error)
+                } else {
+                    print(result ?? "analysis result is nil.")
+                }
             })
         default:
             break
