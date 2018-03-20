@@ -187,7 +187,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Wnullability"
 
 SWIFT_MODULE_NAMESPACE_PUSH("ShecareSDK")
-/// 用户硬件镜像版本
 typedef SWIFT_ENUM(NSInteger, BLEFirmwareImageType) {
 /// 未知版本
   BLEFirmwareImageTypeUnknown = 0,
@@ -198,10 +197,15 @@ typedef SWIFT_ENUM(NSInteger, BLEFirmwareImageType) {
 };
 
 typedef SWIFT_ENUM(NSInteger, BLENotifyType) {
+/// 把温度计的温度单位设置为摄氏度
   BLENotifyTypeSetTemperatureUnitC = 0,
+/// 把温度计的温度单位设置为华氏度
   BLENotifyTypeSetTemperatureUnitF = 1,
+/// 让温度计开始传输温度
   BLENotifyTypeTransmitTemperature = 2,
+/// 返回 “接收的温度数量” 给温度计（温度计收到此指令后，会校验发送的数量和接收的数量是否一致，如果一致，即认为温度发送成功，下次不再重复发送）
   BLENotifyTypeTemperatureCount = 3,
+/// 获取温度计电量
   BLENotifyTypeThermometerPower = 4,
 };
 
@@ -216,9 +220,10 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 @property (nonatomic, strong) CBPeripheral * _Nullable activePeripheral;
 @property (nonatomic, copy) NSString * _Nonnull firmwareVersion;
 @property (nonatomic, copy) NSString * _Nonnull macAddress;
+@property (nonatomic, weak) id <BLEThermometerDelegate> _Nullable delegate;
+/// OAD 专用属性
 @property (nonatomic) BOOL isOADing;
 @property (nonatomic) uint16_t imgVersion;
-@property (nonatomic, weak) id <BLEThermometerDelegate> _Nullable delegate;
 @property (nonatomic, strong) CBCharacteristic * _Nullable imageTypeChar;
 @property (nonatomic, strong) CBCharacteristic * _Nullable oadBlockRequestChar;
 @property (nonatomic) NSInteger oadResponseCount;
@@ -259,8 +264,8 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 @protocol BLEThermometerDelegate <NSObject>
 - (void)bleThermometerDidUpdateState:(BLEThermometer * _Nonnull)bleThermometer;
-- (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type;
 @optional
+- (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didConnect:(CBPeripheral * _Nonnull)peripheral;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didFailToConnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didDisconnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
@@ -347,7 +352,6 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 
 
 
-/// 蓝牙连接类型
 typedef SWIFT_ENUM(NSInteger, YCBLEConnectType) {
 /// 绑定页的连接，可以连接所有设备
   YCBLEConnectTypeBinding = 0,
@@ -363,11 +367,17 @@ typedef SWIFT_ENUM(NSInteger, YCBLEMeasureFlag) {
 };
 
 typedef SWIFT_ENUM(NSInteger, YCBLEState) {
+/// 正常打开
   YCBLEStateValid = 0,
+/// 未知状态
   YCBLEStateUnknown = 1,
+/// 设备不支持蓝牙 4.0
   YCBLEStateUnsupported = 2,
+/// 未授权 App 使用蓝牙
   YCBLEStateUnauthorized = 3,
+/// 蓝牙已关闭
   YCBLEStatePoweredOff = 4,
+/// 蓝牙正在重启
   YCBLEStateResetting = 5,
 };
 
