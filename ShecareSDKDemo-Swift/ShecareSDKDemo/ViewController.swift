@@ -100,7 +100,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let navC = UINavigationController(rootViewController: vc)
             self.show(navC, sender: nil)
         case 1:
-            ShecareService.shared().unBind(macAddress: "C8:FD:19:02:95:7E")
+            ShecareService.shared().unBind(macAddress: "C8:FD:19:02:95:7E") { error in
+                if error == nil {
+                    print("解绑成功")
+                } else {
+                    print(error!)
+                    print("解绑失败")
+                }
+            }
         case 2:
             let webVC = YCWebViewController()
             webVC.urlString = ShecareService.shared().temperatureCharts()

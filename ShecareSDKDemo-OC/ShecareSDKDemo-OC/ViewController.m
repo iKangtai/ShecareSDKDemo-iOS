@@ -73,7 +73,14 @@
         vc.delegate = self;
         [self showViewController:navC sender:nil];
     } else if (modelID == 1) {
-        [[ShecareService shared] unBindWithMacAddress: @"C8:FD:19:02:95:7E"];
+        [[ShecareService shared] unBindWithMacAddress:@"C8:FD:19:02:95:7E" completion:^(NSError * _Nullable error) {
+            if (error == nil) {
+                NSLog(@"解绑成功");
+            } else {
+                NSLog(@"%@", error);
+                NSLog(@"解绑失败");
+            }
+        }];
     } else if (modelID == 2) {
         YCWebViewController *webVC = [[YCWebViewController alloc] init];
         webVC.urlString = [[ShecareService shared] temperatureCharts];

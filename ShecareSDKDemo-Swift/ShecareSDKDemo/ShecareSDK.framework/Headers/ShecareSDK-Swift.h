@@ -277,6 +277,20 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 
 
 
+@interface NSError (SWIFT_EXTENSION(ShecareSDK))
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull unknownError;)
++ (NSError * _Nonnull)unknownError SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull serverError;)
++ (NSError * _Nonnull)serverError SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull unbindError;)
++ (NSError * _Nonnull)unbindError SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull bindedByOthersError;)
++ (NSError * _Nonnull)bindedByOthersError SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull alreadyBindedError;)
++ (NSError * _Nonnull)alreadyBindedError SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 
 
 
@@ -306,7 +320,7 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 - (void)uploadWithPeriods:(NSArray<YCPeriodModel *> * _Nullable)periods completion:(void (^ _Nonnull)(BOOL))completion;
 - (void)uploadWithUserInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion;
 - (NSString * _Nonnull)temperatureCharts SWIFT_WARN_UNUSED_RESULT;
-- (void)unBindWithMacAddress:(NSString * _Nonnull)macAddress;
+- (void)unBindWithMacAddress:(NSString * _Nonnull)macAddress completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
 
