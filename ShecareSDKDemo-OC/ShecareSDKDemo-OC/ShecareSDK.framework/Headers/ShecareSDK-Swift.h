@@ -480,6 +480,10 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK28YCBindViewControllerDelegate_")
 
 SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
 @interface YCPeriodModel : NSObject
+/// 记录日期
+@property (nonatomic, strong) NSDate * _Nullable date;
+/// 经期信息：1 表示经期开始，2 表示经期结束，0 表示删除经期或无经期信息。经期开始和结束应该成对出现
+@property (nonatomic) NSInteger period;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 /// 构造方法
 /// \param date 日期
@@ -495,6 +499,12 @@ SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
 
 SWIFT_CLASS("_TtC10ShecareSDK18YCTemperatureModel")
 @interface YCTemperatureModel : NSObject
+/// 是否已删除
+@property (nonatomic) BOOL deleted;
+/// 测温时间
+@property (nonatomic, strong) NSDate * _Nullable measureTime;
+/// 温度数据
+@property (nonatomic, strong) NSString * _Nonnull temperature;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 /// 构造方法
 /// \param temperature 温度
@@ -509,7 +519,9 @@ SWIFT_CLASS("_TtC10ShecareSDK18YCTemperatureModel")
 
 SWIFT_CLASS("_TtC10ShecareSDK15YCUserInfoModel")
 @interface YCUserInfoModel : NSObject
+/// 周期长度，默认值 28
 @property (nonatomic) float cycleLength;
+/// 经期长度，默认值 6
 @property (nonatomic) float mensLength;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 /// 构造方法
