@@ -71,6 +71,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     int modelID = [(NSNumber *)([self models][indexPath.row][@"id"]) intValue];
     if (modelID == 0) {
+        //  实例化绑定页面控制器并设置代理
         YCBindViewController *vc = [[YCBindViewController alloc] init];
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:vc];
         vc.delegate = self;

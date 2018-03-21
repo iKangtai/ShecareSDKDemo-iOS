@@ -217,9 +217,13 @@ enum YCBLEState : NSInteger;
 
 SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 @interface BLEThermometer : NSObject
+/// 当前连接的外部设备
 @property (nonatomic, strong) CBPeripheral * _Nullable activePeripheral;
+/// 设备的版本号
 @property (nonatomic, copy) NSString * _Nonnull firmwareVersion;
+/// 设备的 MAC 地址
 @property (nonatomic, copy) NSString * _Nonnull macAddress;
+/// 代理。代理方法见 “蓝牙代理方法列表”
 @property (nonatomic, weak) id <BLEThermometerDelegate> _Nullable delegate;
 /// OAD 专用属性
 @property (nonatomic) BOOL isOADing;
@@ -231,11 +235,33 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 /// 单例
 + (BLEThermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// 扫描并连接设备
+/// \param type 需要连接的类型。详见 YCBLEConnectType 的定义
+///
+/// \param macList “已绑定” 的设备 MAC 地址列表，有多个设备时中间用 “,” 分隔即可。对于 type 为 notBinding 的连接有效，可以限制 App 只能连接地址列表里的设备
+///
+///
+/// returns:
+///
+/// 返回 “是否成功开始扫描”
 - (BOOL)connectThermometerWithType:(enum YCBLEConnectType)type macList:(NSString * _Nonnull)macList SWIFT_WARN_UNUSED_RESULT;
+/// 停止扫描
 - (void)stopScan;
+/// 返回当前的蓝牙状态
+///
+/// returns:
+///
+/// 蓝牙状态，详见 YCBLEState 的定义
 - (enum YCBLEState)bleState SWIFT_WARN_UNUSED_RESULT;
+/// 断开当前连接的设备
 - (void)disconnectActiveThermometer;
+/// 同步设备时间
 - (void)asynchroizationTimeFromLocalWithDate:(NSDate * _Nonnull)date;
+/// 发送特定指令给设备
+/// \param type 指令类型。详见 BLENotifyType 的定义
+///
+/// \param value 仅用于 temperatureCount 指令
+///
 - (void)setNotifyValueWithType:(enum BLENotifyType)type value:(uint8_t)value;
 @end
 
@@ -263,6 +289,7 @@ SWIFT_CLASS("_TtC10ShecareSDK14BLEThermometer")
 
 SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 @protocol BLEThermometerDelegate <NSObject>
+/// 设备蓝牙状态改变的回调
 - (void)bleThermometerDidUpdateState:(BLEThermometer * _Nonnull)bleThermometer;
 @optional
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type;
@@ -307,7 +334,7 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 /// 单例
 + (ShecareService * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 /// 设置 UserID
-/// \param identifier 需保证同一个 appID 下的唯一性
+/// \param identifier App 用户标识符，由 App 提供
 ///
 - (void)setUserIdentifier:(NSString * _Nonnull)identifier;
 /// 设置 appID
@@ -318,13 +345,56 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 /// \param identifier 由 SaaS 服务端提供
 ///
 - (void)setApplicationSecret:(NSString * _Nonnull)identifier;
+/// 判断 SDK 是否需要数据初始化
+///
+/// returns:
+///
+/// 返回 true 时，App 需要调用 initData 方法进行数据初始化
 - (BOOL)needInitData SWIFT_WARN_UNUSED_RESULT;
+/// 数据初始化。
+/// \param temperatures 用户的体温数据，可为空
+///
+/// \param periods：用户的经期数据，可为空 
+///
+/// \param userInfo：用户的基础生理信息，不可为空 
+///
+/// \param completion：完成回调 
+///
 - (void)initDataWithTemperatures:(NSArray<YCTemperatureModel *> * _Nullable)temperatures periods:(NSArray<YCPeriodModel *> * _Nullable)periods userInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion SWIFT_METHOD_FAMILY(none);
+/// 新增、更新、删除温度。触发时机：用户进行体温修改时
+/// \param temperatures 用户操作的体温数据。SDK 会根据传入的数据自动决定操作类型，详见 YCTemperatureModel 类定义
+///
+/// \param completion：完成回调 
+///
 - (void)uploadWithTemperatures:(NSArray<YCTemperatureModel *> * _Nullable)temperatures completion:(void (^ _Nonnull)(BOOL))completion;
+/// 新增、更新、删除经期记录。触发时机：用户修改经期数据时
+/// \param periods：用户操作的经期数据。SDK 会根据传入的数据自动决定操作类型，详见 YCPeriodModel 类定义 
+///
+/// \param completion：完成回调 
+///
 - (void)uploadWithPeriods:(NSArray<YCPeriodModel *> * _Nullable)periods completion:(void (^ _Nonnull)(BOOL))completion;
+/// 新增、更新用户基础生理信息。触发时机：用户修改基础生理信息时。一个用户只能有一组基础生理信息
+/// \param userInfo：用户的基础生理信息，不可为空 
+///
+/// \param completion：完成回调 
+///
 - (void)uploadWithUserInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion;
+/// 返回基础体温曲线页面 URL 路径，App 端使用 WebView 加载此路径即可
+///
+/// returns:
+///
+/// 返回基础体温曲线页面 URL
 - (NSString * _Nonnull)temperatureCharts SWIFT_WARN_UNUSED_RESULT;
+/// 智能分析接口
+/// \param completion：完成回调 
+///
+/// \param error 错误信息
+///
+/// \param result 智能分析结果
+///
 - (void)analysis:(void (^ _Nonnull)(NSError * _Nullable, NSDictionary * _Nullable))completion;
+/// \param macAddress：需要解绑的设备 MAC 地址 
+///
 - (void)unBindWithMacAddress:(NSString * _Nonnull)macAddress completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -387,6 +457,7 @@ typedef SWIFT_ENUM(NSInteger, YCBLEState) {
 
 SWIFT_CLASS("_TtC10ShecareSDK20YCBindViewController")
 @interface YCBindViewController : UIViewController
+/// 代理
 @property (nonatomic, weak) id <YCBindViewControllerDelegate> _Nullable delegate;
 - (void)viewDidLoad;
 - (void)viewDidDisappear:(BOOL)animated;
@@ -410,6 +481,13 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK28YCBindViewControllerDelegate_")
 SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
 @interface YCPeriodModel : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
+/// 构造方法
+/// \param date 日期
+///
+/// \param period 经期信息，1 表示经期开始，2 表示经期结束，0 表示删除经期。经期开始和结束应该成对出现
+///
+/// \param status 状态。保留字段，暂时没用到
+///
 - (nonnull instancetype)initWithDate:(NSDate * _Nonnull)date period:(NSInteger)period status:(NSInteger)status;
 @end
 
@@ -418,6 +496,13 @@ SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
 SWIFT_CLASS("_TtC10ShecareSDK18YCTemperatureModel")
 @interface YCTemperatureModel : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
+/// 构造方法
+/// \param temperature 温度
+///
+/// \param measureTime 温度的测量时间
+///
+/// \param deleted 是否删除该温度。true 表示删除，false 表示不删除
+///
 - (nonnull instancetype)initWithTemperature:(NSString * _Nonnull)temperature measureTime:(NSDate * _Nonnull)date deleted:(BOOL)deleted;
 @end
 
@@ -427,6 +512,11 @@ SWIFT_CLASS("_TtC10ShecareSDK15YCUserInfoModel")
 @property (nonatomic) float cycleLength;
 @property (nonatomic) float mensLength;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
+/// 构造方法
+/// \param cycleLength 周期长度
+///
+/// \param mensLength 经期长度
+///
 - (nonnull instancetype)initWithCycleLength:(NSInteger)cycleLength mensLength:(NSInteger)mensLength;
 @end
 

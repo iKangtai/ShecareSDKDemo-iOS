@@ -96,6 +96,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cellID = models[indexPath.row]["id"] as! NSNumber
         switch cellID {
         case 0:
+            //  实例化绑定页面控制器并设置代理
             let vc = YCBindViewController()
             vc.delegate = self
             let navC = UINavigationController(rootViewController: vc)
