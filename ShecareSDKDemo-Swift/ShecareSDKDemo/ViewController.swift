@@ -136,8 +136,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case 5:
             let startDate = NSDate(timeIntervalSinceNow: -5 * 86_400)
-            let periodModel1 = YCPeriodModel(date: startDate, period: 1, status: 1)
-            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2, status: 1)
+            let periodModel1 = YCPeriodModel(date: startDate, period: 1)
+            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2)
             ShecareService.shared().upload(periods: [periodModel1, periodModel2]) { success in
                 if success {
                     self.showAlert(title: "温馨提示", message: "经期信息上传成功！", confirmHandler: nil, cancelHandler: nil)
@@ -151,8 +151,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let tempModel1 = YCTemperatureModel(temperature: "37.22", measureTime: startDate, deleted: false)
             let tempModel2 = YCTemperatureModel(temperature: "36.97", measureTime: NSDate(), deleted: false)
             let temperatures = [tempModel1, tempModel2]
-            let periodModel1 = YCPeriodModel(date: startDate, period: 1, status: 1)
-            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2, status: 1)
+            let periodModel1 = YCPeriodModel(date: startDate, period: 1)
+            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2)
             let periods = [periodModel1, periodModel2]
             if ShecareService.shared().needInitData() {
                 ShecareService.shared().initData(temperatures: temperatures, periods: periods, userInfo: userInfo, completion: { (result) in

@@ -110,8 +110,8 @@
             }
         }];
     } else if (modelID == 5) {
-        YCPeriodModel *perModel1 = [[YCPeriodModel alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:-5 * 86400] period:1 status:1];
-        YCPeriodModel *perModel2 = [[YCPeriodModel alloc] initWithDate:[NSDate date] period:2 status:1];
+        YCPeriodModel *perModel1 = [[YCPeriodModel alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:-5 * 86400] period:1];
+        YCPeriodModel *perModel2 = [[YCPeriodModel alloc] initWithDate:[NSDate date] period:2];
         [[ShecareService shared] uploadWithPeriods:@[perModel1, perModel2] completion:^(BOOL success) {
             if (success) {
                 [self showAlertWithTitle:@"温馨提示" message:@"经期上传成功" confirmHandler:nil];
@@ -123,8 +123,8 @@
         YCUserInfoModel *infoModel = [[YCUserInfoModel alloc] initWithCycleLength:30 mensLength:6];
         YCTemperatureModel *tempModel1 = [[YCTemperatureModel alloc] initWithTemperature:@"37.12" measureTime:[NSDate dateWithTimeIntervalSinceNow:-86400] deleted:NO];
         YCTemperatureModel *tempModel2 = [[YCTemperatureModel alloc] initWithTemperature:@"36.12" measureTime:[NSDate date] deleted:NO];
-        YCPeriodModel *perModel1 = [[YCPeriodModel alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:-5 * 86400] period:1 status:1];
-        YCPeriodModel *perModel2 = [[YCPeriodModel alloc] initWithDate:[NSDate date] period:2 status:1];
+        YCPeriodModel *perModel1 = [[YCPeriodModel alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:-5 * 86400] period:1];
+        YCPeriodModel *perModel2 = [[YCPeriodModel alloc] initWithDate:[NSDate date] period:2];
         [[ShecareService shared] initDataWithTemperatures:@[tempModel1, tempModel2] periods:@[perModel1, perModel2] userInfo:infoModel completion:^(BOOL success) {
             if (success) {
                 [self showAlertWithTitle:@"温馨提示" message:@"数据初始化成功" confirmHandler:nil];

@@ -490,9 +490,7 @@ SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
 ///
 /// \param period 经期信息，1 表示经期开始，2 表示经期结束，0 表示删除经期。经期开始和结束应该成对出现
 ///
-/// \param status 状态。保留字段，暂时没用到
-///
-- (nonnull instancetype)initWithDate:(NSDate * _Nonnull)date period:(NSInteger)period status:(NSInteger)status;
+- (nonnull instancetype)initWithDate:(NSDate * _Nonnull)date period:(NSInteger)period;
 @end
 
 @class NSString;
@@ -521,7 +519,7 @@ SWIFT_CLASS("_TtC10ShecareSDK15YCUserInfoModel")
 @interface YCUserInfoModel : NSObject
 /// 周期长度，默认值 28
 @property (nonatomic) float cycleLength;
-/// 经期长度，默认值 6
+/// 经期长度，默认值 5
 @property (nonatomic) float mensLength;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 /// 构造方法
