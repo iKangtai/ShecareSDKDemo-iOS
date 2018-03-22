@@ -103,7 +103,7 @@ extension AppDelegate: BLEThermometerDelegate {
     
     func bleThermometer(_ bleThermometer: BLEThermometer,
                         didUpload temperatures: [YCTemperatureModel]) {
-        print("\n******* temperatures: " + temperatures.description + " ********\n")
+        print("***************\n temperatures: " + temperatures.description + " \n****************")
         
         
     }

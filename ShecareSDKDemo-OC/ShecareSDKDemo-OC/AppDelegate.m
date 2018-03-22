@@ -79,7 +79,7 @@
 }
 
 -(void)bleThermometer:(BLEThermometer *)bleThermometer didUpload:(NSArray<YCTemperatureModel *> *)temperatures {
-    NSLog(@"\n********  temperatures:%@  ********\n", temperatures);
+    NSLog(@"****************\n  temperatures:%@  \n****************", temperatures);
 }
 
 -(void)bleThermometer:(BLEThermometer *)bleThermometer didSetTemperatureUnit:(BOOL)success {

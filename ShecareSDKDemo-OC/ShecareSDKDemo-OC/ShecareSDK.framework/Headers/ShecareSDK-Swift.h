@@ -300,7 +300,6 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didSetTemperatureUnit:(BOOL)success;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didGetFirmwareVersion:(NSString * _Nonnull)firmwareVersion;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didSetThermometerTime:(BOOL)success;
-- (void)bleThermometerDidGetTemperature:(BLEThermometer * _Nonnull)bleThermometer;
 - (void)bleThermometer:(BLEThermometer * _Nonnull)bleThermometer didGetThermometerPower:(double)value;
 @end
 
@@ -491,6 +490,7 @@ SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
 /// \param period 经期信息，1 表示经期开始，2 表示经期结束，0 表示删除经期。经期开始和结束应该成对出现
 ///
 - (nonnull instancetype)initWithDate:(NSDate * _Nonnull)date period:(NSInteger)period;
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
 @class NSString;
@@ -512,6 +512,7 @@ SWIFT_CLASS("_TtC10ShecareSDK18YCTemperatureModel")
 /// \param deleted 是否删除该温度。true 表示删除，false 表示不删除
 ///
 - (nonnull instancetype)initWithTemperature:(NSString * _Nonnull)temperature measureTime:(NSDate * _Nonnull)date deleted:(BOOL)deleted;
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
 
@@ -528,6 +529,7 @@ SWIFT_CLASS("_TtC10ShecareSDK15YCUserInfoModel")
 /// \param mensLength 经期长度
 ///
 - (nonnull instancetype)initWithCycleLength:(NSInteger)cycleLength mensLength:(NSInteger)mensLength;
+@property (nonatomic, readonly, copy) NSString * _Nonnull description;
 @end
 
 SWIFT_MODULE_NAMESPACE_POP
