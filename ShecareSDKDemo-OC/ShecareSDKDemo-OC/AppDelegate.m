@@ -104,10 +104,6 @@
     }
 }
 
--(void)bleThermometerDidGetTemperature:(BLEThermometer *)bleThermometer {
-    
-}
-
 -(void)bleThermometer:(BLEThermometer *)bleThermometer didGetThermometerPower:(double)value {
     
 }

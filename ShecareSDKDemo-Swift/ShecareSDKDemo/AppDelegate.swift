@@ -130,9 +130,6 @@ extension AppDelegate: BLEThermometerDelegate {
         }
     }
     
-    func bleThermometerDidGetTemperature(_ bleThermometer: BLEThermometer) {
-    }
-    
     func bleThermometer(_ bleThermometer: BLEThermometer, didGetThermometerPower value: Double) {
     }
     

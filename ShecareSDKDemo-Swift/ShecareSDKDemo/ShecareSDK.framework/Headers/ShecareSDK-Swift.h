@@ -507,7 +507,7 @@ SWIFT_CLASS("_TtC10ShecareSDK18YCTemperatureModel")
 /// 构造方法
 /// \param temperature 温度
 ///
-/// \param measureTime 温度的测量时间
+/// \param measureTime 温度的测量时间。⚠️不能为空⚠️
 ///
 /// \param deleted 是否删除该温度。true 表示删除，false 表示不删除
 ///
