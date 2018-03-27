@@ -323,12 +323,15 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _N
 
 
 
+enum YCEnvironment : NSInteger;
 @class YCPeriodModel;
 @class YCUserInfoModel;
 @class NSDictionary;
 
 SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 @interface ShecareService : NSObject
+/// 设置 SDK 环境，可以不设置。默认是 线上环境 .release
+@property (nonatomic) enum YCEnvironment environment;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 /// 单例
 + (ShecareService * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
@@ -475,6 +478,13 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK28YCBindViewControllerDelegate_")
 - (void)bindViewController:(YCBindViewController * _Nonnull)bindViewController didBind:(NSString * _Nonnull)macAddress;
 - (void)bindViewController:(YCBindViewController * _Nonnull)bindViewController didFailedToBind:(NSString * _Nonnull)macAddress errorMessage:(NSString * _Nonnull)errorMessage;
 @end
+
+typedef SWIFT_ENUM(NSInteger, YCEnvironment) {
+/// 正式服务器
+  YCEnvironmentRelease = 0,
+/// 测试服务器
+  YCEnvironmentTester = 1,
+};
 
 
 SWIFT_CLASS("_TtC10ShecareSDK13YCPeriodModel")
