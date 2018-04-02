@@ -164,6 +164,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                         self.showAlert(title: "温馨提示", message: "初始化失败！", confirmHandler: nil, cancelHandler: nil)
                     }
                 })
+            } else {
+                print("=====> 不需要重复初始化数据！")
             }
         case 7:
             ShecareService.shared().analysis({ (error, result) in
