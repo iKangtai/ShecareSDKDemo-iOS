@@ -125,13 +125,17 @@
         YCTemperatureModel *tempModel2 = [[YCTemperatureModel alloc] initWithTemperature:@"36.12" measureTime:[NSDate date] deleted:NO];
         YCPeriodModel *perModel1 = [[YCPeriodModel alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:-5 * 86400] period:1];
         YCPeriodModel *perModel2 = [[YCPeriodModel alloc] initWithDate:[NSDate date] period:2];
-        [[ShecareService shared] initDataWithTemperatures:@[tempModel1, tempModel2] periods:@[perModel1, perModel2] userInfo:infoModel completion:^(BOOL success) {
-            if (success) {
-                [self showAlertWithTitle:@"温馨提示" message:@"数据初始化成功" confirmHandler:nil];
-            } else {
-                [self showAlertWithTitle:@"温馨提示" message:@"数据初始化失败" confirmHandler:nil];
-            }
-        }];
+        if ([[ShecareService shared] needInitData]) {
+            [[ShecareService shared] initDataWithTemperatures:@[tempModel1, tempModel2] periods:@[perModel1, perModel2] userInfo:infoModel completion:^(BOOL success) {
+                if (success) {
+                    [self showAlertWithTitle:@"温馨提示" message:@"数据初始化成功" confirmHandler:nil];
+                } else {
+                    [self showAlertWithTitle:@"温馨提示" message:@"数据初始化失败" confirmHandler:nil];
+                }
+            }];
+        } else {
+            NSLog(@"=====> 不需要重复初始化数据！");
+        }
     } else if (modelID == 7) {
         [[ShecareService shared] analysis:^(NSError * _Nullable error, NSDictionary * _Nullable result) {
             if (error == nil) {
