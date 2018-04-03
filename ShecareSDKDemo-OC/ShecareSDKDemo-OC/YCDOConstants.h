@@ -7,5 +7,3 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#define userIdentifier @"1001"

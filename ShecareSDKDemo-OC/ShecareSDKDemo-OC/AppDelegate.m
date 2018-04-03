@@ -32,11 +32,11 @@
 }
 
 - (void)setupShecareService {
-    [[ShecareService shared] setApplicationIdentifier:@"123456"];
-    [[ShecareService shared] setApplicationSecret:@"1"];
-    [[ShecareService shared] setUserIdentifier:userIdentifier];
+    [[ShecareService shared] setApplicationIdentifier:@"110001"];
+    [[ShecareService shared] setApplicationSecret:@"5A1A56702EAD2AA4"];
+    [[ShecareService shared] setUserIdentifier:@"c51c044ae085ecf4a1ebb43cc26056c1"];
     // 设置 SDK 环境，可以不设置。默认是 线上环境 .release
-    [ShecareService shared].environment = YCEnvironmentTester;
+    [ShecareService shared].environment = YCEnvironmentRelease;
     [BLEThermometer shared].delegate = self;
     self.connectType = YCBLEConnectTypeNotBinding;
     [self scanForThermometer];
