@@ -117,31 +117,34 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(webVC, animated: true)
         case 3:
             let userInfo = YCUserInfoModel(cycleLength: 30, mensLength: 6)
-            ShecareService.shared().upload(userInfo: userInfo) { success in
-                if success {
+            ShecareService.shared().upload(userInfo: userInfo) { error in
+                if error == nil {
                     self.showAlert(title: "温馨提示", message: "生理信息上传成功！", confirmHandler: nil, cancelHandler: nil)
                 } else {
+                    print(error!)
                     self.showAlert(title: "温馨提示", message: "生理信息上传失败！", confirmHandler: nil, cancelHandler: nil)
                 }
             }
         case 4:
             let tempModel1 = YCTemperatureModel(temperature: "37.12", measureTime: NSDate(timeIntervalSinceNow: -86_400), deleted: false)
             let tempModel2 = YCTemperatureModel(temperature: "36.87", measureTime: NSDate(), deleted: false)
-            ShecareService.shared().upload(temperatures: [tempModel1, tempModel2]) { success in
-                if success {
+            ShecareService.shared().upload(temperatures: [tempModel1, tempModel2]) { error in
+                if error == nil {
                     self.showAlert(title: "温馨提示", message: "温度上传成功！", confirmHandler: nil, cancelHandler: nil)
                 } else {
+                    print(error!)
                     self.showAlert(title: "温馨提示", message: "温度上传失败！", confirmHandler: nil, cancelHandler: nil)
                 }
             }
         case 5:
             let startDate = NSDate(timeIntervalSinceNow: -5 * 86_400)
-            let periodModel1 = YCPeriodModel(date: startDate, period: 1)
-            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2)
-            ShecareService.shared().upload(periods: [periodModel1, periodModel2]) { success in
-                if success {
+            let periodModel1 = YCPeriodModel(date: startDate, period: 1, deleted: false)
+            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2, deleted: false)
+            ShecareService.shared().upload(periods: [periodModel1, periodModel2]) { error in
+                if error == nil {
                     self.showAlert(title: "温馨提示", message: "经期信息上传成功！", confirmHandler: nil, cancelHandler: nil)
                 } else {
+                    print(error!)
                     self.showAlert(title: "温馨提示", message: "经期信息上传失败！", confirmHandler: nil, cancelHandler: nil)
                 }
             }
@@ -151,15 +154,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let tempModel1 = YCTemperatureModel(temperature: "37.22", measureTime: startDate, deleted: false)
             let tempModel2 = YCTemperatureModel(temperature: "36.97", measureTime: NSDate(), deleted: false)
             let temperatures = [tempModel1, tempModel2]
-            let periodModel1 = YCPeriodModel(date: startDate, period: 1)
-            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2)
+            let periodModel1 = YCPeriodModel(date: startDate, period: 1, deleted: false)
+            let periodModel2 = YCPeriodModel(date: NSDate(), period: 2, deleted: false)
             let periods = [periodModel1, periodModel2]
             if ShecareService.shared().needInitData() {
-                ShecareService.shared().initData(temperatures: temperatures, periods: periods, userInfo: userInfo, completion: { (result) in
-                    if result {
+                ShecareService.shared().initData(temperatures: temperatures, periods: periods, userInfo: userInfo, completion: { error in
+                    if error == nil {
                         //  Shecare SDK 数据初始化成功
                         self.showAlert(title: "温馨提示", message: "初始化成功！", confirmHandler: nil, cancelHandler: nil)
                     } else {
+                        print(error!)
                         //  Shecare SDK 数据初始化失败
                         self.showAlert(title: "温馨提示", message: "初始化失败！", confirmHandler: nil, cancelHandler: nil)
                     }
@@ -182,16 +186,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension ViewController: YCBindViewControllerDelegate {
-    func bindViewController(_ bindViewController: YCBindViewController, didBind macAddress: String) {
-        showAlert(title: "绑定成功", message: macAddress, confirmHandler: { (_) in
-            bindViewController.dismiss(animated: true, completion: nil)
-        }, cancelHandler: nil)
-    }
-    
-    func bindViewController(_ bindViewController: YCBindViewController, didFailedToBind macAddress: String, errorMessage: String) {
-        showAlert(title: "绑定失败", message: macAddress + "\n" + errorMessage, confirmHandler: { (_) in
-            bindViewController.dismiss(animated: true, completion: nil)
-        }, cancelHandler: nil)
+    func bindViewController(_ bindViewController: YCBindViewController, didBind macAddress: String, error: NSError?) {
+        if error == nil {
+            showAlert(title: "绑定成功", message: macAddress, confirmHandler: { (_) in
+                bindViewController.dismiss(animated: true, completion: nil)
+            }, cancelHandler: nil)
+        } else {
+            showAlert(title: "绑定失败", message: macAddress + "\n" + (error?.localizedDescription)!, confirmHandler: { (_) in
+                bindViewController.dismiss(animated: true, completion: nil)
+            }, cancelHandler: nil)
+        }
     }
 }
 

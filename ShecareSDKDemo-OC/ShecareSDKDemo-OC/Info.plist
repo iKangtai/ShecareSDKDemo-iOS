@@ -45,6 +45,10 @@
     <array>
         <string>bluetooth-central</string>
     </array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>YCShecareV2</string>
+    </array>
     <key>NSAppTransportSecurity</key>
     <dict>
         <!--Not a recommended way, there are better solutions available-->

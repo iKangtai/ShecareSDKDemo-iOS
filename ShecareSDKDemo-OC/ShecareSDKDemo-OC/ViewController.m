@@ -92,30 +92,33 @@
         [self.navigationController pushViewController:webVC animated:true];
     } else if (modelID == 3) {
         YCUserInfoModel *infoModel = [[YCUserInfoModel alloc] initWithCycleLength:30 mensLength:6];
-        [[ShecareService shared] uploadWithUserInfo:infoModel completion:^(BOOL success) {
-            if (success) {
+        [[ShecareService shared] uploadWithUserInfo:infoModel completion:^(NSError *error) {
+            if (error == nil) {
                 [self showAlertWithTitle:@"温馨提示" message:@"生理信息上传成功" confirmHandler:nil];
             } else {
+                NSLog(@"%@", error);
                 [self showAlertWithTitle:@"温馨提示" message:@"生理信息上传失败" confirmHandler:nil];
             }
         }];
     } else if (modelID == 4) {
         YCTemperatureModel *tempModel1 = [[YCTemperatureModel alloc] initWithTemperature:@"37.12" measureTime:[NSDate dateWithTimeIntervalSinceNow:-86400] deleted:NO];
         YCTemperatureModel *tempModel2 = [[YCTemperatureModel alloc] initWithTemperature:@"36.12" measureTime:[NSDate date] deleted:NO];
-        [[ShecareService shared] uploadWithTemperatures:@[tempModel1, tempModel2] completion:^(BOOL success) {
-            if (success) {
+        [[ShecareService shared] uploadWithTemperatures:@[tempModel1, tempModel2] completion:^(NSError *error) {
+            if (error == nil) {
                 [self showAlertWithTitle:@"温馨提示" message:@"温度上传成功" confirmHandler:nil];
             } else {
+                NSLog(@"%@", error);
                 [self showAlertWithTitle:@"温馨提示" message:@"温度上传失败" confirmHandler:nil];
             }
         }];
     } else if (modelID == 5) {
         YCPeriodModel *perModel1 = [[YCPeriodModel alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:-5 * 86400] period:1 deleted:false];
         YCPeriodModel *perModel2 = [[YCPeriodModel alloc] initWithDate:[NSDate date] period:2 deleted:false];
-        [[ShecareService shared] uploadWithPeriods:@[perModel1, perModel2] completion:^(BOOL success) {
-            if (success) {
+        [[ShecareService shared] uploadWithPeriods:@[perModel1, perModel2] completion:^(NSError *error) {
+            if (error == nil) {
                 [self showAlertWithTitle:@"温馨提示" message:@"经期上传成功" confirmHandler:nil];
             } else {
+                NSLog(@"%@", error);
                 [self showAlertWithTitle:@"温馨提示" message:@"经期上传失败" confirmHandler:nil];
             }
         }];
@@ -126,10 +129,11 @@
         YCPeriodModel *perModel1 = [[YCPeriodModel alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:-5 * 86400] period:1 deleted:false];
         YCPeriodModel *perModel2 = [[YCPeriodModel alloc] initWithDate:[NSDate date] period:2 deleted:false];
         if ([[ShecareService shared] needInitData]) {
-            [[ShecareService shared] initDataWithTemperatures:@[tempModel1, tempModel2] periods:@[perModel1, perModel2] userInfo:infoModel completion:^(BOOL success) {
-                if (success) {
+            [[ShecareService shared] initDataWithTemperatures:@[tempModel1, tempModel2] periods:@[perModel1, perModel2] userInfo:infoModel completion:^(NSError *error) {
+                if (error == nil) {
                     [self showAlertWithTitle:@"温馨提示" message:@"数据初始化成功" confirmHandler:nil];
                 } else {
+                    NSLog(@"%@", error);
                     [self showAlertWithTitle:@"温馨提示" message:@"数据初始化失败" confirmHandler:nil];
                 }
             }];
@@ -149,16 +153,16 @@
 
 #pragma mark - YCBindViewControllerDelegate
 
--(void)bindViewController:(YCBindViewController *)bindViewController didBind:(NSString *)macAddress {
-    [self showAlertWithTitle:@"绑定成功" message:macAddress confirmHandler:^(UIAlertAction *action) {
-        [bindViewController dismissViewControllerAnimated:true completion:nil];
-    }];
-}
-
--(void)bindViewController:(YCBindViewController *)bindViewController didFailedToBind:(NSString *)macAddress errorMessage:(NSString *)errorMessage {
-    [self showAlertWithTitle:@"绑定失败" message:[NSString stringWithFormat:@"%@\n%@", macAddress, errorMessage] confirmHandler:^(UIAlertAction *action) {
-        [bindViewController dismissViewControllerAnimated:true completion:nil];
-    }];
+-(void)bindViewController:(YCBindViewController *)bindViewController didBind:(NSString *)macAddress error:(NSError * _Nullable)error {
+    if (error == nil) {
+        [self showAlertWithTitle:@"绑定成功" message:macAddress confirmHandler:^(UIAlertAction *action) {
+            [bindViewController dismissViewControllerAnimated:true completion:nil];
+        }];
+    } else {
+        [self showAlertWithTitle:@"绑定失败" message:[NSString stringWithFormat:@"%@\n%@", macAddress, error.localizedDescription] confirmHandler:^(UIAlertAction *action) {
+            [bindViewController dismissViewControllerAnimated:true completion:nil];
+        }];
+    }
 }
 
 #pragma mark - lazy load

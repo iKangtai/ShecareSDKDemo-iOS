@@ -315,6 +315,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _N
 + (NSError * _Nonnull)unbindError SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull bindedByOthersError;)
 + (NSError * _Nonnull)bindedByOthersError SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull userIdentifierIsNull;)
++ (NSError * _Nonnull)userIdentifierIsNull SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) NSError * _Nonnull applicationIdentifierIsNull;)
++ (NSError * _Nonnull)applicationIdentifierIsNull SWIFT_WARN_UNUSED_RESULT;
++ (NSError * _Nonnull)errorWithCode:(NSInteger)code message:(NSString * _Nonnull)message SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -361,25 +366,25 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 ///
 /// \param completion：完成回调 
 ///
-- (void)initDataWithTemperatures:(NSArray<YCTemperatureModel *> * _Nullable)temperatures periods:(NSArray<YCPeriodModel *> * _Nullable)periods userInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion SWIFT_METHOD_FAMILY(none);
+- (void)initDataWithTemperatures:(NSArray<YCTemperatureModel *> * _Nullable)temperatures periods:(NSArray<YCPeriodModel *> * _Nullable)periods userInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(NSError * _Nullable))completion SWIFT_METHOD_FAMILY(none);
 /// 新增、更新、删除温度。触发时机：用户进行体温修改时
 /// \param temperatures 用户操作的体温数据。SDK 会根据传入的数据自动决定操作类型，详见 YCTemperatureModel 类定义
 ///
 /// \param completion：完成回调 
 ///
-- (void)uploadWithTemperatures:(NSArray<YCTemperatureModel *> * _Nullable)temperatures completion:(void (^ _Nonnull)(BOOL))completion;
+- (void)uploadWithTemperatures:(NSArray<YCTemperatureModel *> * _Nullable)temperatures completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 /// 新增、更新、删除经期记录。触发时机：用户修改经期数据时
 /// \param periods：用户操作的经期数据。SDK 会根据传入的数据自动决定操作类型，详见 YCPeriodModel 类定义 
 ///
 /// \param completion：完成回调 
 ///
-- (void)uploadWithPeriods:(NSArray<YCPeriodModel *> * _Nullable)periods completion:(void (^ _Nonnull)(BOOL))completion;
+- (void)uploadWithPeriods:(NSArray<YCPeriodModel *> * _Nullable)periods completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 /// 新增、更新用户基础生理信息。触发时机：用户修改基础生理信息时。一个用户只能有一组基础生理信息
 /// \param userInfo：用户的基础生理信息，不可为空 
 ///
 /// \param completion：完成回调 
 ///
-- (void)uploadWithUserInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(BOOL))completion;
+- (void)uploadWithUserInfo:(YCUserInfoModel * _Nonnull)userInfo completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 /// 返回基础体温曲线页面 URL 路径，App 端使用 WebView 加载此路径即可
 ///
 /// returns:
@@ -474,8 +479,7 @@ SWIFT_CLASS("_TtC10ShecareSDK20YCBindViewController")
 
 SWIFT_PROTOCOL("_TtP10ShecareSDK28YCBindViewControllerDelegate_")
 @protocol YCBindViewControllerDelegate <NSObject>
-- (void)bindViewController:(YCBindViewController * _Nonnull)bindViewController didBind:(NSString * _Nonnull)macAddress;
-- (void)bindViewController:(YCBindViewController * _Nonnull)bindViewController didFailedToBind:(NSString * _Nonnull)macAddress errorMessage:(NSString * _Nonnull)errorMessage;
+- (void)bindViewController:(YCBindViewController * _Nonnull)bindViewController didBind:(NSString * _Nonnull)macAddress error:(NSError * _Nullable)error;
 @end
 
 typedef SWIFT_ENUM(NSInteger, YCEnvironment) {
