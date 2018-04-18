@@ -79,6 +79,7 @@
 		C228BB3F2060D7620048B8AE /* YCDOHTTPClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCDOHTTPClient.h; sourceTree = "<group>"; };
 		C228BB402060D7620048B8AE /* YCDOHTTPClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCDOHTTPClient.m; sourceTree = "<group>"; };
 		C23B5E3E20738A9C00FEA55F /* ShecareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShecareSDK.framework; sourceTree = "<group>"; };
+		C252772120871E7800FBC564 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C290E1E9205FDC0D00A30209 /* YCWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YCWebViewController.h; sourceTree = "<group>"; };
 		C290E1EA205FDC0D00A30209 /* YCWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YCWebViewController.m; sourceTree = "<group>"; };
 		C29450E42074B75000825645 /* ShecareSDKDemo-OC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShecareSDKDemo-OC-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -301,7 +302,6 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = C9AC0BDB205FC8030082CE24;
@@ -400,6 +400,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C9AC0BF3205FC8030082CE24 /* Base */,
+				C252772120871E7800FBC564 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

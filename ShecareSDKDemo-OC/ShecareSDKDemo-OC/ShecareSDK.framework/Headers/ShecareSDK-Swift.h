@@ -330,6 +330,7 @@ enum YCEnvironment : NSInteger;
 @class YCPeriodModel;
 @class YCUserInfoModel;
 @class NSDictionary;
+@class YCSLHPaperModel;
 
 SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 @interface ShecareService : NSObject
@@ -402,6 +403,11 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 /// \param macAddress：需要解绑的设备 MAC 地址 
 ///
 - (void)unBindWithMacAddress:(NSString * _Nonnull)macAddress completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+/// \param model：需要上传并分析的试纸 Model 
+///
+/// \param completion 完成回调
+///
+- (void)uploadLHPapers:(YCSLHPaperModel * _Nonnull)model completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
 

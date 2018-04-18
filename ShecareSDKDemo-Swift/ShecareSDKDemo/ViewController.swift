@@ -99,6 +99,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             //  实例化绑定页面控制器并设置代理
             let vc = YCBindViewController()
             vc.delegate = self
+            let leftItem = UIBarButtonItem(title: "Return", style: .plain, target: self, action: #selector(dismissBindVC))
+            vc.navigationItem.leftBarButtonItem = leftItem
+            vc.title = "设备绑定"
             let navC = UINavigationController(rootViewController: vc)
             self.show(navC, sender: nil)
         case 1:
@@ -182,6 +185,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
+    }
+    
+    @objc private func dismissBindVC() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

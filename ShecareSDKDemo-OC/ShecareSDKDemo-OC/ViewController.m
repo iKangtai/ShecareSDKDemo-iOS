@@ -73,9 +73,11 @@
     if (modelID == 0) {
         //  实例化绑定页面控制器并设置代理
         YCBindViewController *vc = [[YCBindViewController alloc] init];
-        UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:vc];
+        UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(dismissBindVC)];
+        vc.navigationItem.leftBarButtonItem = leftBarItem;
+        vc.title = @"绑定设备";
         vc.delegate = self;
-        [self showViewController:navC sender:nil];
+        [self.navigationController pushViewController:vc animated:TRUE];
     } else if (modelID == 1) {
         [[ShecareService shared] unBindWithMacAddress:@"C8:FD:19:02:95:7E" completion:^(NSError * _Nullable error) {
             if (error == nil) {
@@ -163,6 +165,10 @@
             [bindViewController dismissViewControllerAnimated:true completion:nil];
         }];
     }
+}
+
+- (void)dismissBindVC {
+    [self.navigationController popViewControllerAnimated:TRUE];
 }
 
 #pragma mark - lazy load
