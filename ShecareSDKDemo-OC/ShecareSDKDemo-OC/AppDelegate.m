@@ -57,6 +57,10 @@
 
 #pragma mark - BLEThermometerDelegate
 
+-(void)bleThermometer:(Thermometer *)bleThermometer didStartScan:(NSString *)info {
+    
+}
+
 -(void)bleThermometerDidUpdateState:(Thermometer *)bleThermometer {
     if ([bleThermometer bleState] == BLEStateValid) {
         [self scanForThermometer];
@@ -75,10 +79,6 @@
 
 -(void)bleThermometer:(Thermometer *)bleThermometer didDisconnect:(CBPeripheral *)peripheral error:(NSError *)error {
     [self scanForThermometer];
-}
-
--(void)bleThermometer:(Thermometer *)bleThermometer didUpload:(NSArray<YCTemperatureModel *> *)temperatures {
-    NSLog(@"****************\n  temperatures:%@  \n****************", temperatures);
 }
 
 -(void)bleThermometer:(Thermometer *)bleThermometer didSetTemperatureUnit:(BOOL)success {
@@ -112,7 +112,7 @@
 }
 
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didUpload:(double)temperature time:(NSString * _Nonnull)time flag:(enum BLEMeasureFlag)flag dataStr:(NSString * _Nonnull)dataStr {
-    
+    NSLog(@"****************\n  temperatures:%@  \n****************", temperatures);
 }
 
 

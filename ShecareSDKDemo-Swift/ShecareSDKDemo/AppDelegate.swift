@@ -13,10 +13,10 @@ import ShecareSDK
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    lazy var bleThermometer: BLEThermometer = {
-        return BLEThermometer.shared()
+    lazy var bleThermometer: Thermometer = {
+        return Thermometer.shared()
     }()
-    var bleConnectType: YCBLEConnectType = .notBinding
+    var bleConnectType: BLEConnectType = .notBinding
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -64,8 +64,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: BLEThermometerDelegate {
+    func bleThermometer(_ bleThermometer: Thermometer, didStartScan info: String) {
+        
+    }
     
-    public func scanForThermometer(type: YCBLEConnectType) {
+    func connectUnBindedHardware(_ macAddress: String) {
+        
+    }
+    
+    func bleThermometer(_ bleThermometer: Thermometer, didUpload temperature: Double, time: String, flag: BLEMeasureFlag, dataStr: String) {
+        
+    }
+    
+    public func scanForThermometer(type: BLEConnectType) {
         //  即使当前状态为 已连接 或 蓝牙不可用，蓝牙扫描状态也需要根据外部传入数据改变
         bleConnectType = type
         if bleThermometer.bleState() != .valid {
@@ -73,14 +84,11 @@ extension AppDelegate: BLEThermometerDelegate {
             return
         }
         //  即使当前状态为 已连接，也需要重置 bleThermometer 的 type
-        if bleThermometer.connectThermometer(type: type, macList: "") {
-            print("Start to scan. Type: \(type)")
-        } else {
-            print("Start scan failed!")
-        }
+        print("Start to scan. Type: \(type)")
+        bleThermometer.scan(type: type, macList: "")
     }
     
-    func bleThermometerDidUpdateState(_ bleThermometer: BLEThermometer) {
+    func bleThermometerDidUpdateState(_ bleThermometer: Thermometer) {
         
         if bleThermometer.bleState() == .valid {
             scanForThermometer(type: bleConnectType)
@@ -89,32 +97,25 @@ extension AppDelegate: BLEThermometerDelegate {
         }
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer, didConnect peripheral: CBPeripheral) {
+    func bleThermometer(_ bleThermometer: Thermometer, didConnect peripheral: CBPeripheral) {
         
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+    func bleThermometer(_ bleThermometer: Thermometer, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         scanForThermometer(type: bleConnectType)
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer,
+    func bleThermometer(_ bleThermometer: Thermometer,
                         didDisconnect peripheral: CBPeripheral,
                         error: Error?) {
         scanForThermometer(type: bleConnectType)
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer,
-                        didUpload temperatures: [YCTemperatureModel]) {
-        print("***************\n temperatures: " + temperatures.description + " \n****************")
-        
-        
-    }
-    
-    func bleThermometer(_ bleThermometer: BLEThermometer, didSetTemperatureUnit success: Bool) {
+    func bleThermometer(_ bleThermometer: Thermometer, didSetTemperatureUnit success: Bool) {
         print("set temperature unit, result: \(success)")
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer, didGetFirmwareVersion firmwareVersion: String) {
+    func bleThermometer(_ bleThermometer: Thermometer, didGetFirmwareVersion firmwareVersion: String) {
         bleThermometer.firmwareVersion = firmwareVersion
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             bleThermometer.asynchroizationTimeFromLocal(date: Date())
@@ -124,7 +125,7 @@ extension AppDelegate: BLEThermometerDelegate {
         }
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer, didSetThermometerTime success: Bool) {
+    func bleThermometer(_ bleThermometer: Thermometer, didSetThermometerTime success: Bool) {
         if success {
             print("\(type(of: self)) sync time success!")
         } else {
@@ -132,10 +133,10 @@ extension AppDelegate: BLEThermometerDelegate {
         }
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer, didGetThermometerPower value: Double) {
+    func bleThermometer(_ bleThermometer: Thermometer, didGetThermometerPower value: Double) {
     }
     
-    func bleThermometer(_ bleThermometer: BLEThermometer, didReadFirmwareImageType type: BLEFirmwareImageType) {
+    func bleThermometer(_ bleThermometer: Thermometer, didReadFirmwareImageType type: BLEFirmwareImageType) {
     }
     
 }

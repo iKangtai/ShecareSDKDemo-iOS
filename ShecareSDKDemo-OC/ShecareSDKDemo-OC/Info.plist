@@ -41,6 +41,8 @@
 	</array>
     <key>NSBluetoothPeripheralUsageDescription</key>
     <string>此 App 需要您的同意才能使用蓝牙</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>此 App 需要您的同意才能使用蓝牙</string>
     <key>UIBackgroundModes</key>
     <array>
         <string>bluetooth-central</string>
