@@ -13,7 +13,7 @@
 
 @interface AppDelegate ()<BLEThermometerDelegate>
 ///  蓝牙连接类型
-@property (nonatomic, assign) YCBLEConnectType connectType;
+@property (nonatomic, assign) BLEConnectType connectType;
 
 @end
 
@@ -37,58 +37,55 @@
     [[ShecareService shared] setUserIdentifier:@"1002"];
     // 设置 SDK 环境，可以不设置。默认是 Release 环境 .release
     [ShecareService shared].environment = YCEnvironmentRelease;
-    [BLEThermometer shared].delegate = self;
-    self.connectType = YCBLEConnectTypeNotBinding;
+    [Thermometer shared].delegate = self;
+    self.connectType = BLEConnectTypeNotBinding;
     [self scanForThermometer];
 }
 
 - (void)scanForThermometer {
     //  if the bleutooth availabel to use
-    if ([BLEThermometer shared].bleState == YCBLEStateValid) {
-        if ([BLEThermometer shared].activePeripheral != nil) {
+    if ([Thermometer shared].bleState == BLEStateValid) {
+        if ([Thermometer shared].activePeripheral != nil) {
             NSLog(@"已经连接！");
             return;
         }
         //  start to scan the peripheral
-        if ([[BLEThermometer shared] connectThermometerWithType:self.connectType macList:@"C8:FD:19:02:95:7E,18:93:D7:24:7A:8F"]) {
-            NSLog(@"Has start to scan.");
-        } else {
-            NSLog(@"Start scan Failed!");
-        }
+        NSLog(@"Has start to scan.");
+        [[Thermometer shared] scanWithType:self.connectType macList:@"C8:FD:19:02:95:7E,18:93:D7:24:7A:8F"];
     }
 }
 
 #pragma mark - BLEThermometerDelegate
 
--(void)bleThermometerDidUpdateState:(BLEThermometer *)bleThermometer {
-    if ([bleThermometer bleState] == YCBLEStateValid) {
+-(void)bleThermometerDidUpdateState:(Thermometer *)bleThermometer {
+    if ([bleThermometer bleState] == BLEStateValid) {
         [self scanForThermometer];
     } else {
         bleThermometer.activePeripheral = nil;
     }
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didConnect:(CBPeripheral *)peripheral {
+-(void)bleThermometer:(Thermometer *)bleThermometer didConnect:(CBPeripheral *)peripheral {
     
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didFailToConnect:(CBPeripheral *)peripheral error:(NSError *)error {
+-(void)bleThermometer:(Thermometer *)bleThermometer didFailToConnect:(CBPeripheral *)peripheral error:(NSError *)error {
     [self scanForThermometer];
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didDisconnect:(CBPeripheral *)peripheral error:(NSError *)error {
+-(void)bleThermometer:(Thermometer *)bleThermometer didDisconnect:(CBPeripheral *)peripheral error:(NSError *)error {
     [self scanForThermometer];
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didUpload:(NSArray<YCTemperatureModel *> *)temperatures {
+-(void)bleThermometer:(Thermometer *)bleThermometer didUpload:(NSArray<YCTemperatureModel *> *)temperatures {
     NSLog(@"****************\n  temperatures:%@  \n****************", temperatures);
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didSetTemperatureUnit:(BOOL)success {
+-(void)bleThermometer:(Thermometer *)bleThermometer didSetTemperatureUnit:(BOOL)success {
     
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didGetFirmwareVersion:(NSString *)firmwareVersion {
+-(void)bleThermometer:(Thermometer *)bleThermometer didGetFirmwareVersion:(NSString *)firmwareVersion {
     bleThermometer.firmwareVersion = firmwareVersion;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [bleThermometer asynchroizationTimeFromLocalWithDate:[NSDate date]];
@@ -98,7 +95,7 @@
     });
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didSetThermometerTime:(BOOL)success {
+-(void)bleThermometer:(Thermometer *)bleThermometer didSetThermometerTime:(BOOL)success {
     if (success) {
         NSLog(@"同步时间成功");
     } else {
@@ -106,12 +103,22 @@
     }
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didGetThermometerPower:(double)value {
+-(void)bleThermometer:(Thermometer *)bleThermometer didGetThermometerPower:(double)value {
     
 }
 
--(void)bleThermometer:(BLEThermometer *)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type {
+-(void)bleThermometer:(Thermometer *)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type {
     
 }
+
+- (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didUpload:(double)temperature time:(NSString * _Nonnull)time flag:(enum BLEMeasureFlag)flag dataStr:(NSString * _Nonnull)dataStr {
+    
+}
+
+
+- (void)connectUnBindedHardware:(NSString * _Nonnull)macAddress {
+    
+}
+
 
 @end
