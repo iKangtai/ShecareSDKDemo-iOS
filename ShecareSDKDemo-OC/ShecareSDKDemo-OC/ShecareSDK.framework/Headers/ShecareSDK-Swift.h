@@ -398,8 +398,10 @@ SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 @property (nonatomic, strong) CBCharacteristic * _Nullable oadBlockRequestChar;
 @property (nonatomic) NSInteger oadResponseCount;
 @property (nonatomic, copy) void (^ _Nullable oadAction)(Thermometer * _Nonnull, NSInteger);
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 /// 单例
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Thermometer * _Nonnull shared;)
 + (Thermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 - (void)scanWithType:(enum BLEConnectType)type macList:(NSString * _Nonnull)macList;
 - (enum BLEState)bleState SWIFT_WARN_UNUSED_RESULT;
@@ -969,8 +971,10 @@ SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 @property (nonatomic, strong) CBCharacteristic * _Nullable oadBlockRequestChar;
 @property (nonatomic) NSInteger oadResponseCount;
 @property (nonatomic, copy) void (^ _Nullable oadAction)(Thermometer * _Nonnull, NSInteger);
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 /// 单例
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Thermometer * _Nonnull shared;)
 + (Thermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 - (void)scanWithType:(enum BLEConnectType)type macList:(NSString * _Nonnull)macList;
 - (enum BLEState)bleState SWIFT_WARN_UNUSED_RESULT;

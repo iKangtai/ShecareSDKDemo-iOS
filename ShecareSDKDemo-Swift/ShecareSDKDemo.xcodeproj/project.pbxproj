@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		527F73A923F6462D00569FF7 /* ShecareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F73A723F6462800569FF7 /* ShecareSDK.framework */; };
-		527F73AA23F6462D00569FF7 /* ShecareSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 527F73A723F6462800569FF7 /* ShecareSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		523B2B2023F6BFC8000879B9 /* ShecareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 523B2B1E23F6BFBC000879B9 /* ShecareSDK.framework */; };
+		523B2B2123F6BFC8000879B9 /* ShecareSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 523B2B1E23F6BFBC000879B9 /* ShecareSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C20AC42A205BD2EE004B8F44 /* YCWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20AC425205BD2EE004B8F44 /* YCWebViewController.swift */; };
 		C228BB0C2060D4AB0048B8AE /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFA2060D4AB0048B8AE /* TaskDelegate.swift */; };
 		C228BB0D2060D4AB0048B8AE /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C228BAFB2060D4AB0048B8AE /* MultipartFormData.swift */; };
@@ -63,7 +63,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				527F73AA23F6462D00569FF7 /* ShecareSDK.framework in Embed Frameworks */,
+				523B2B2123F6BFC8000879B9 /* ShecareSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,7 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		527F73A723F6462800569FF7 /* ShecareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShecareSDK.framework; sourceTree = "<group>"; };
+		523B2B1E23F6BFBC000879B9 /* ShecareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShecareSDK.framework; sourceTree = "<group>"; };
 		C20AC37B205B9DC2004B8F44 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C20AC425205BD2EE004B8F44 /* YCWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YCWebViewController.swift; sourceTree = "<group>"; };
 		C228BAFA2060D4AB0048B8AE /* TaskDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				527F73A923F6462D00569FF7 /* ShecareSDK.framework in Frameworks */,
+				523B2B2023F6BFC8000879B9 /* ShecareSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +198,7 @@
 		C2E1C831205A62BB00454F4C /* ShecareSDKDemo */ = {
 			isa = PBXGroup;
 			children = (
-				527F73A723F6462800569FF7 /* ShecareSDK.framework */,
+				523B2B1E23F6BFBC000879B9 /* ShecareSDK.framework */,
 				C2E1C832205A62BB00454F4C /* AppDelegate.swift */,
 				C228BB392060D7280048B8AE /* YCDConstants.swift */,
 				C228BB382060D7280048B8AE /* YCDHTTPClient.swift */,

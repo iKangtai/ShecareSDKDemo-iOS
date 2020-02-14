@@ -13,9 +13,6 @@ import ShecareSDK
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    lazy var bleThermometer: Thermometer = {
-        return Thermometer.shared()
-    }()
     var bleConnectType: BLEConnectType = .notBinding
 
 
@@ -58,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ShecareService.shared().setUserIdentifier("17611113591")
         // 设置 SDK 环境，可以不设置。默认是 线上环境 .release
         ShecareService.shared().environment = .release
-        bleThermometer.delegate = self
+        Thermometer.shared.delegate = self
         scanForThermometer(type: bleConnectType)
     }
 
@@ -80,22 +77,18 @@ extension AppDelegate: BLEThermometerDelegate {
     public func scanForThermometer(type: BLEConnectType) {
         //  即使当前状态为 已连接 或 蓝牙不可用，蓝牙扫描状态也需要根据外部传入数据改变
         bleConnectType = type
-        if bleThermometer.bleState() != .valid {
-            print("Bluetooth is OFF.")
-            return
-        }
         //  即使当前状态为 已连接，也需要重置 bleThermometer 的 type
-        print("Start to scan. Type: \(type)")
-        bleThermometer.scan(type: type, macList: "")
+        print("Start to scan. Type: " + type.descString())
+        Thermometer.shared.scan(type: type, macList: "")
     }
     
     func bleThermometerDidUpdateState(_ bleThermometer: Thermometer) {
         
         if bleThermometer.bleState() == .valid {
-            scanForThermometer(type: bleConnectType)
         } else {
             bleThermometer.activePeripheral = nil
         }
+        scanForThermometer(type: bleConnectType)
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didConnect peripheral: CBPeripheral) {
