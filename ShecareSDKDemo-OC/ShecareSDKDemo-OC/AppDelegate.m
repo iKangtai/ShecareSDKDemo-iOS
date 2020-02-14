@@ -32,9 +32,10 @@
 }
 
 - (void)setupShecareService {
-    [[ShecareService shared] setApplicationIdentifier:@"123456"];
-    [[ShecareService shared] setApplicationSecret:@"ikangtai123"];
-    [[ShecareService shared] setUserIdentifier:@"1002"];
+    // 中国家医网 AppID 和 Secret
+    [[ShecareService shared] setApplicationIdentifier:@"100024"];
+    [[ShecareService shared] setApplicationSecret:@"9838026264882FF82ACE610B8C176DAA"];
+    [[ShecareService shared] setUserIdentifier:@"17611113591"];
     // 设置 SDK 环境，可以不设置。默认是 Release 环境 .release
     [ShecareService shared].environment = YCEnvironmentRelease;
     [Thermometer shared].delegate = self;

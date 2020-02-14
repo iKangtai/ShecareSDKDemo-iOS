@@ -204,6 +204,14 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+/// 蓝牙连接类型
+typedef SWIFT_ENUM(NSInteger, BLEConnectType, closed) {
+/// 绑定页的连接，可以连接所有设备
+  BLEConnectTypeBinding = 0,
+/// 非绑定页的连接，只能连接已绑定的设备
+  BLEConnectTypeNotBinding = 1,
+};
+
 /// 用户硬件镜像版本
 typedef SWIFT_ENUM(NSInteger, BLEFirmwareImageType, closed) {
 /// 未知版本
@@ -219,6 +227,23 @@ typedef SWIFT_ENUM(NSInteger, BLEMeasureFlag, closed) {
   BLEMeasureFlagOfflineBegin = 1,
   BLEMeasureFlagOfflineEnd = 2,
   BLEMeasureFlagUnknown = 3,
+};
+
+typedef SWIFT_ENUM(NSInteger, BLENotifyType, closed) {
+  BLENotifyTypeSetTemperatureUnitC = 0,
+  BLENotifyTypeSetTemperatureUnitF = 1,
+  BLENotifyTypeTransmitTemperature = 2,
+  BLENotifyTypeTemperatureCount = 3,
+  BLENotifyTypeThermometerPower = 4,
+};
+
+typedef SWIFT_ENUM(NSInteger, BLEState, closed) {
+  BLEStateValid = 0,
+  BLEStateUnknown = 1,
+  BLEStateUnsupported = 2,
+  BLEStateUnauthorized = 3,
+  BLEStatePoweredOff = 4,
+  BLEStateResetting = 5,
 };
 
 @class Thermometer;
@@ -365,6 +390,7 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 @interface Thermometer : NSObject
 @property (nonatomic, strong) CBPeripheral * _Nullable activePeripheral;
+@property (nonatomic, copy) NSString * _Nonnull firmwareVersion;
 @property (nonatomic) BOOL isOADing;
 @property (nonatomic) uint16_t imgVersion;
 @property (nonatomic, weak) id <BLEThermometerDelegate> _Nullable delegate;
@@ -375,6 +401,10 @@ SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 /// 单例
 + (Thermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (void)scanWithType:(enum BLEConnectType)type macList:(NSString * _Nonnull)macList;
+- (enum BLEState)bleState SWIFT_WARN_UNUSED_RESULT;
+- (void)asynchroizationTimeFromLocalWithDate:(NSDate * _Nonnull)date;
+- (void)setNotifyValueWithType:(enum BLENotifyType)type value:(uint8_t)value;
 @end
 
 
@@ -745,6 +775,14 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+/// 蓝牙连接类型
+typedef SWIFT_ENUM(NSInteger, BLEConnectType, closed) {
+/// 绑定页的连接，可以连接所有设备
+  BLEConnectTypeBinding = 0,
+/// 非绑定页的连接，只能连接已绑定的设备
+  BLEConnectTypeNotBinding = 1,
+};
+
 /// 用户硬件镜像版本
 typedef SWIFT_ENUM(NSInteger, BLEFirmwareImageType, closed) {
 /// 未知版本
@@ -760,6 +798,23 @@ typedef SWIFT_ENUM(NSInteger, BLEMeasureFlag, closed) {
   BLEMeasureFlagOfflineBegin = 1,
   BLEMeasureFlagOfflineEnd = 2,
   BLEMeasureFlagUnknown = 3,
+};
+
+typedef SWIFT_ENUM(NSInteger, BLENotifyType, closed) {
+  BLENotifyTypeSetTemperatureUnitC = 0,
+  BLENotifyTypeSetTemperatureUnitF = 1,
+  BLENotifyTypeTransmitTemperature = 2,
+  BLENotifyTypeTemperatureCount = 3,
+  BLENotifyTypeThermometerPower = 4,
+};
+
+typedef SWIFT_ENUM(NSInteger, BLEState, closed) {
+  BLEStateValid = 0,
+  BLEStateUnknown = 1,
+  BLEStateUnsupported = 2,
+  BLEStateUnauthorized = 3,
+  BLEStatePoweredOff = 4,
+  BLEStateResetting = 5,
 };
 
 @class Thermometer;
@@ -906,6 +961,7 @@ SWIFT_CLASS("_TtC10ShecareSDK14ShecareService")
 SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 @interface Thermometer : NSObject
 @property (nonatomic, strong) CBPeripheral * _Nullable activePeripheral;
+@property (nonatomic, copy) NSString * _Nonnull firmwareVersion;
 @property (nonatomic) BOOL isOADing;
 @property (nonatomic) uint16_t imgVersion;
 @property (nonatomic, weak) id <BLEThermometerDelegate> _Nullable delegate;
@@ -916,6 +972,10 @@ SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 /// 单例
 + (Thermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (void)scanWithType:(enum BLEConnectType)type macList:(NSString * _Nonnull)macList;
+- (enum BLEState)bleState SWIFT_WARN_UNUSED_RESULT;
+- (void)asynchroizationTimeFromLocalWithDate:(NSDate * _Nonnull)date;
+- (void)setNotifyValueWithType:(enum BLENotifyType)type value:(uint8_t)value;
 @end
 
 

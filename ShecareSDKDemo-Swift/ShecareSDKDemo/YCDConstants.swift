@@ -8,4 +8,3 @@
 
 import UIKit
 
-let userIdentifier = "1001"
