@@ -15,10 +15,10 @@ class ViewController: UIViewController {
                               ["title": "解绑体温计，使用固定 MAC 地址", "id": 1],
 //                              ["title": "打开体温曲线", "id": 2],
 //                              ["title": "访问智能分析接口", "id": 7],
-//                              ["title": "上传基础生理信息", "id": 3],
+                              ["title": "上传基础生理信息", "id": 3],
                               ["title": "上传体温", "id": 4],
-//                              ["title": "上传经期", "id": 5],
-//                              ["title": "初始化用户数据", "id": 6]
+                              ["title": "上传经期", "id": 5],
+                              ["title": "初始化用户数据", "id": 6]
     ]
     
     override func viewDidLoad() {

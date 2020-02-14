@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ShecareService.shared().setApplicationSecret("9838026264882FF82ACE610B8C176DAA")
         ShecareService.shared().setUserIdentifier("17611113591")
         // 设置 SDK 环境，可以不设置。默认是 线上环境 .release
-        ShecareService.shared().environment = .tester
+        ShecareService.shared().environment = .release
         bleThermometer.delegate = self
         scanForThermometer(type: bleConnectType)
     }
