@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var bleConnectType: BLEConnectType = .notBinding
+    var validTemperatures = [[String: Any]]()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -72,6 +73,36 @@ extension AppDelegate: BLEThermometerDelegate {
     
     func bleThermometer(_ bleThermometer: Thermometer, didUpload temperature: Double, time: String, flag: BLEMeasureFlag, dataStr: String) {
         
+        print("\n******* 体温计上传温度: \(temperature), " + "时间: " + time + ", 类型: " + flag.descString())
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let measTime = formatter.date(from: time) as NSDate? ?? NSDate()
+        
+        validTemperatures.append(["measureTime": measTime, "temperature": temperature])
+        
+        switch flag {
+        case .offlineBegin:
+            break
+        case .offlineEnd: // 体温数据上传结束
+            if validTemperatures.count > 0 {
+                print(validTemperatures)
+                print("上传数量：\(self.validTemperatures.count)")
+                bleThermometer.setNotifyValue(type: .temperatureCount, value: UInt8(self.validTemperatures.count))
+                self.validTemperatures.removeAll()
+            }
+        case .online:
+            //  一代设备 或 额温枪 数据上传
+            if validTemperatures.count > 0 {
+                print(validTemperatures)
+                print("上传数量：\(self.validTemperatures.count)")
+            }
+            validTemperatures.removeAll()
+        case .unknown:
+            break
+        }
     }
     
     public func scanForThermometer(type: BLEConnectType) {
@@ -103,6 +134,7 @@ extension AppDelegate: BLEThermometerDelegate {
                         didDisconnect peripheral: CBPeripheral,
                         error: Error?) {
         scanForThermometer(type: bleConnectType)
+        validTemperatures.removeAll()
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didSetTemperatureUnit success: Bool) {
