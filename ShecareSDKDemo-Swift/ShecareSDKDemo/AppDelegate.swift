@@ -114,16 +114,36 @@ extension AppDelegate: BLEThermometerDelegate {
     }
     
     func bleThermometerDidUpdateState(_ bleThermometer: Thermometer) {
-        
         if bleThermometer.bleState() == .valid {
         } else {
+            NotificationCenter.default.post(name: .thermometerConnectSuccess, object: false)
             bleThermometer.activePeripheral = nil
         }
         scanForThermometer(type: bleConnectType)
+        NotificationCenter.default.post(name: .thermometerDidUpdateState,
+                                        object: bleThermometer.bleState())
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didConnect peripheral: CBPeripheral) {
         
+        NotificationCenter.default.post(name: .thermometerConnectSuccess, object: true)
+    }
+    
+    func bleThermometerDidStopScan(_ bleThermometer: Thermometer) {
+        print("停止扫描")
+    }
+    
+    func bleThermometer(_ bleThermometer: Thermometer, didSetDefaultProperties info: String) {
+        print(info)
+    }
+    
+    func bleThermometer(_ bleThermometer: Thermometer, didAsynchroizationTimeFromLocal info: String) {
+        print(info)
+    }
+    
+    func bleThermometer(_ bleThermometer: Thermometer, didGetTemperatureIndication indication: String) {
+        print(indication)
+        bleThermometer.setNotifyValue(type: .thermometerPower, value: 0)
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -135,6 +155,7 @@ extension AppDelegate: BLEThermometerDelegate {
                         error: Error?) {
         scanForThermometer(type: bleConnectType)
         validTemperatures.removeAll()
+        NotificationCenter.default.post(name: .thermometerConnectSuccess, object: false)
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didSetTemperatureUnit success: Bool) {
@@ -149,6 +170,7 @@ extension AppDelegate: BLEThermometerDelegate {
                 bleThermometer.setNotifyValue(type: .transmitTemperature, value: 0)
             })
         }
+        NotificationCenter.default.post(name: .thermometerGetFirmwareVersion, object: bleThermometer)
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didSetThermometerTime success: Bool) {
@@ -157,6 +179,7 @@ extension AppDelegate: BLEThermometerDelegate {
         } else {
             print("\(type(of: self)) sync time fail")
         }
+        NotificationCenter.default.post(name: .thermometerSetTime, object: success)
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didGetThermometerPower value: Double) {

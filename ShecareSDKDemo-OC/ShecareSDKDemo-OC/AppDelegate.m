@@ -74,6 +74,22 @@
     
 }
 
+-(void)bleThermometerDidStopScan:(Thermometer *)bleThermometer {
+    
+}
+
+-(void)bleThermometer:(Thermometer *)bleThermometer didSetDefaultProperties:(NSString *)info {
+    
+}
+
+-(void)bleThermometer:(Thermometer *)bleThermometer didAsynchroizationTimeFromLocal:(NSString *)info {
+    
+}
+
+- (void)bleThermometer:(Thermometer *)bleThermometer didGetTemperatureIndication:(NSString *)indication {
+    
+}
+
 -(void)bleThermometer:(Thermometer *)bleThermometer didFailToConnect:(CBPeripheral *)peripheral error:(NSError *)error {
     [self scanForThermometer];
 }
