@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class YCDHTTPClient: NSObject {
     let defaultHeaders = ["Accept": "application/json;charset=UTF-8"]

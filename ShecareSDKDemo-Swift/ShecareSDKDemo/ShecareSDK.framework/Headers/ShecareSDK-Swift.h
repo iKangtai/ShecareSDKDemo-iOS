@@ -440,18 +440,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Thermometer 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 @protocol YCBindViewControllerDelegate;
 @class NSBundle;
 @class NSCoder;
@@ -1002,18 +990,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Thermometer 
 - (void)centralManager:(CBCentralManager * _Nonnull)central didFailToConnectPeripheral:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 - (void)centralManager:(CBCentralManager * _Nonnull)central didDisconnectPeripheral:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 @end
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
