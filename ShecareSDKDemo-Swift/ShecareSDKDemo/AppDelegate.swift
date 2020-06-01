@@ -50,10 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func setupShecareService(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
-        // 中国家医网 AppID 和 Secret
-        ShecareService.shared().setApplicationIdentifier("100024")
-        ShecareService.shared().setApplicationSecret("9838026264882FF82ACE610B8C176DAA")
-        ShecareService.shared().setUserIdentifier("17611113591")
+        ShecareService.shared().setApplicationIdentifier("123456")
+        ShecareService.shared().setApplicationSecret("ikangtai123")
+        ShecareService.shared().setUserIdentifier("luopk@ikangtai.com")
         // 设置 SDK 环境，可以不设置。默认是 线上环境 .release
         ShecareService.shared().environment = .release
         Thermometer.shared.delegate = self
