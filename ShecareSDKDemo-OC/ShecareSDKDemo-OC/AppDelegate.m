@@ -12,8 +12,6 @@
 #import "YCDOConstants.h"
 
 @interface AppDelegate ()<BLEThermometerDelegate>
-///  蓝牙连接类型
-@property (nonatomic, assign) BLEConnectType connectType;
 
 @end
 
@@ -38,7 +36,6 @@
     // 设置 SDK 环境，可以不设置。默认是 Release 环境 .release
     [ShecareService shared].environment = YCEnvironmentRelease;
     [Thermometer shared].delegate = self;
-    self.connectType = BLEConnectTypeNotBinding;
     [self scanForThermometer];
 }
 
@@ -51,13 +48,13 @@
         }
         //  start to scan the peripheral
         NSLog(@"Has start to scan.");
-        [[Thermometer shared] scanWithType:self.connectType macList:@"C8:FD:19:02:95:7E,18:93:D7:24:7A:8F"];
+        [[Thermometer shared] scan:@""];
     }
 }
 
 #pragma mark - BLEThermometerDelegate
 
--(void)bleThermometer:(Thermometer *)bleThermometer didStartScan:(NSString *)info {
+-(void)bleThermometerDidStartScan:(Thermometer *)bleThermometer {
     
 }
 
@@ -85,7 +82,7 @@
     
 }
 
-- (void)bleThermometer:(Thermometer *)bleThermometer didGetTemperatureIndication:(NSString *)indication {
+- (void)bleThermometerDidFinishUpload:(Thermometer *)bleThermometer {
     
 }
 

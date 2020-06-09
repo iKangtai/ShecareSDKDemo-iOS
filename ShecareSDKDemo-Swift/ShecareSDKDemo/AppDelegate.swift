@@ -13,7 +13,6 @@ import ShecareSDK
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var bleConnectType: BLEConnectType = .notBinding
     var validTemperatures = [[String: Any]]()
 
 
@@ -50,19 +49,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func setupShecareService(launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
-        ShecareService.shared().setApplicationIdentifier("123456")
-        ShecareService.shared().setApplicationSecret("ikangtai123")
+        ShecareService.shared().setApplicationIdentifier("100025")
+        ShecareService.shared().setApplicationSecret("71bd1361d049b050baabb49b9231aa11")
         ShecareService.shared().setUserIdentifier("luopk@ikangtai.com")
         // 设置 SDK 环境，可以不设置。默认是 线上环境 .release
         ShecareService.shared().environment = .release
         Thermometer.shared.delegate = self
-        scanForThermometer(type: bleConnectType)
+        scanForThermometer()
     }
 
 }
 
 extension AppDelegate: BLEThermometerDelegate {
-    func bleThermometer(_ bleThermometer: Thermometer, didStartScan info: String) {
+    func bleThermometerDidStartScan(_ bleThermometer: Thermometer) {
         
     }
     
@@ -72,7 +71,7 @@ extension AppDelegate: BLEThermometerDelegate {
     
     func bleThermometer(_ bleThermometer: Thermometer, didUpload temperature: Double, time: String, flag: BLEMeasureFlag, dataStr: String) {
         
-        print("\n******* 体温计上传温度: \(temperature), " + "时间: " + time + ", 类型: " + flag.descString())
+        print("\n******* Upload: \(temperature), " + "time: " + time + ", flag: " + flag.descString())
         
         let formatter = DateFormatter()
         formatter.locale = Locale.current
@@ -88,7 +87,7 @@ extension AppDelegate: BLEThermometerDelegate {
         case .offlineEnd: // 体温数据上传结束
             if validTemperatures.count > 0 {
                 print(validTemperatures)
-                print("上传数量：\(self.validTemperatures.count)")
+                print("Upload：\(self.validTemperatures.count)")
                 bleThermometer.setNotifyValue(type: .temperatureCount, value: UInt8(self.validTemperatures.count))
                 self.validTemperatures.removeAll()
             }
@@ -96,7 +95,7 @@ extension AppDelegate: BLEThermometerDelegate {
             //  一代设备 或 额温枪 数据上传
             if validTemperatures.count > 0 {
                 print(validTemperatures)
-                print("上传数量：\(self.validTemperatures.count)")
+                print("Upload：\(self.validTemperatures.count)")
             }
             validTemperatures.removeAll()
         case .unknown:
@@ -104,12 +103,11 @@ extension AppDelegate: BLEThermometerDelegate {
         }
     }
     
-    public func scanForThermometer(type: BLEConnectType) {
+    public func scanForThermometer() {
         //  即使当前状态为 已连接 或 蓝牙不可用，蓝牙扫描状态也需要根据外部传入数据改变
-        bleConnectType = type
         //  即使当前状态为 已连接，也需要重置 bleThermometer 的 type
-        print("Start to scan. Type: " + type.descString())
-        Thermometer.shared.scan(type: type, macList: "")
+        print("Start to scan ...")
+        Thermometer.shared.scan("")
     }
     
     func bleThermometerDidUpdateState(_ bleThermometer: Thermometer) {
@@ -118,7 +116,7 @@ extension AppDelegate: BLEThermometerDelegate {
             NotificationCenter.default.post(name: .thermometerConnectSuccess, object: false)
             bleThermometer.activePeripheral = nil
         }
-        scanForThermometer(type: bleConnectType)
+        scanForThermometer()
         NotificationCenter.default.post(name: .thermometerDidUpdateState,
                                         object: bleThermometer.bleState())
     }
@@ -129,7 +127,7 @@ extension AppDelegate: BLEThermometerDelegate {
     }
     
     func bleThermometerDidStopScan(_ bleThermometer: Thermometer) {
-        print("停止扫描")
+        print("Stop scan...")
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didSetDefaultProperties info: String) {
@@ -140,19 +138,18 @@ extension AppDelegate: BLEThermometerDelegate {
         print(info)
     }
     
-    func bleThermometer(_ bleThermometer: Thermometer, didGetTemperatureIndication indication: String) {
-        print(indication)
+    func bleThermometerDidFinishUpload(_ bleThermometer: Thermometer) {
         bleThermometer.setNotifyValue(type: .thermometerPower, value: 0)
     }
     
     func bleThermometer(_ bleThermometer: Thermometer, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        scanForThermometer(type: bleConnectType)
+        scanForThermometer()
     }
     
     func bleThermometer(_ bleThermometer: Thermometer,
                         didDisconnect peripheral: CBPeripheral,
                         error: Error?) {
-        scanForThermometer(type: bleConnectType)
+        scanForThermometer()
         validTemperatures.removeAll()
         NotificationCenter.default.post(name: .thermometerConnectSuccess, object: false)
     }

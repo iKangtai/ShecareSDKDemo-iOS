@@ -209,14 +209,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
-/// 蓝牙连接类型
-typedef SWIFT_ENUM(NSInteger, BLEConnectType, closed) {
-/// 绑定页的连接，可以连接所有设备
-  BLEConnectTypeBinding = 0,
-/// 非绑定页的连接，只能连接已绑定的设备
-  BLEConnectTypeNotBinding = 1,
-};
-
 /// 用户硬件镜像版本
 typedef SWIFT_ENUM(NSInteger, BLEFirmwareImageType, closed) {
 /// 未知版本
@@ -262,17 +254,16 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didFailToConnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didDisconnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 @required
-/// 返回温度数据的代理方法
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didUpload:(double)temperature time:(NSString * _Nonnull)time flag:(enum BLEMeasureFlag)flag dataStr:(NSString * _Nonnull)dataStr;
 @optional
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didConnect:(CBPeripheral * _Nonnull)peripheral;
-- (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didStartScan:(NSString * _Nonnull)info;
+- (void)bleThermometerDidStartScan:(Thermometer * _Nonnull)bleThermometer;
 - (void)bleThermometerDidStopScan:(Thermometer * _Nonnull)bleThermometer;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didSetDefaultProperties:(NSString * _Nonnull)info;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didSetTemperatureUnit:(BOOL)success;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didGetFirmwareVersion:(NSString * _Nonnull)firmwareVersion;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didSetThermometerTime:(BOOL)success;
-- (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didGetTemperatureIndication:(NSString * _Nonnull)indication;
+- (void)bleThermometerDidFinishUpload:(Thermometer * _Nonnull)bleThermometer;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didGetThermometerPower:(double)value;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didAsynchroizationTimeFromLocal:(NSString * _Nonnull)info;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type;
@@ -408,7 +399,7 @@ SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 /// 单例
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Thermometer * _Nonnull shared;)
 + (Thermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-- (void)scanWithType:(enum BLEConnectType)type macList:(NSString * _Nonnull)macList;
+- (void)scan:(NSString * _Nullable)macList;
 - (enum BLEState)bleState SWIFT_WARN_UNUSED_RESULT;
 - (void)asynchroizationTimeFromLocalWithDate:(NSDate * _Nonnull)date;
 - (void)setNotifyValueWithType:(enum BLENotifyType)type value:(uint8_t)value;
@@ -775,14 +766,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
-/// 蓝牙连接类型
-typedef SWIFT_ENUM(NSInteger, BLEConnectType, closed) {
-/// 绑定页的连接，可以连接所有设备
-  BLEConnectTypeBinding = 0,
-/// 非绑定页的连接，只能连接已绑定的设备
-  BLEConnectTypeNotBinding = 1,
-};
-
 /// 用户硬件镜像版本
 typedef SWIFT_ENUM(NSInteger, BLEFirmwareImageType, closed) {
 /// 未知版本
@@ -828,17 +811,16 @@ SWIFT_PROTOCOL("_TtP10ShecareSDK22BLEThermometerDelegate_")
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didFailToConnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didDisconnect:(CBPeripheral * _Nonnull)peripheral error:(NSError * _Nullable)error;
 @required
-/// 返回温度数据的代理方法
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didUpload:(double)temperature time:(NSString * _Nonnull)time flag:(enum BLEMeasureFlag)flag dataStr:(NSString * _Nonnull)dataStr;
 @optional
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didConnect:(CBPeripheral * _Nonnull)peripheral;
-- (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didStartScan:(NSString * _Nonnull)info;
+- (void)bleThermometerDidStartScan:(Thermometer * _Nonnull)bleThermometer;
 - (void)bleThermometerDidStopScan:(Thermometer * _Nonnull)bleThermometer;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didSetDefaultProperties:(NSString * _Nonnull)info;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didSetTemperatureUnit:(BOOL)success;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didGetFirmwareVersion:(NSString * _Nonnull)firmwareVersion;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didSetThermometerTime:(BOOL)success;
-- (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didGetTemperatureIndication:(NSString * _Nonnull)indication;
+- (void)bleThermometerDidFinishUpload:(Thermometer * _Nonnull)bleThermometer;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didGetThermometerPower:(double)value;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didAsynchroizationTimeFromLocal:(NSString * _Nonnull)info;
 - (void)bleThermometer:(Thermometer * _Nonnull)bleThermometer didReadFirmwareImageType:(enum BLEFirmwareImageType)type;
@@ -974,7 +956,7 @@ SWIFT_CLASS("_TtC10ShecareSDK11Thermometer")
 /// 单例
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Thermometer * _Nonnull shared;)
 + (Thermometer * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-- (void)scanWithType:(enum BLEConnectType)type macList:(NSString * _Nonnull)macList;
+- (void)scan:(NSString * _Nullable)macList;
 - (enum BLEState)bleState SWIFT_WARN_UNUSED_RESULT;
 - (void)asynchroizationTimeFromLocalWithDate:(NSDate * _Nonnull)date;
 - (void)setNotifyValueWithType:(enum BLENotifyType)type value:(uint8_t)value;
