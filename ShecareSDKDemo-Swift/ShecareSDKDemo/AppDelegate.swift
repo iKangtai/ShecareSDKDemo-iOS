@@ -57,6 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Thermometer.shared.delegate = self
         scanForThermometer()
     }
+    
+    public func scanForThermometer() {
+        //  即使当前状态为 已连接 或 蓝牙不可用，蓝牙扫描状态也需要根据外部传入数据改变
+        //  即使当前状态为 已连接，也需要重置 bleThermometer 的 type
+        print("Start to scan ...")
+        Thermometer.shared.scan("")
+    }
 
 }
 
@@ -101,13 +108,6 @@ extension AppDelegate: BLEThermometerDelegate {
         case .unknown:
             break
         }
-    }
-    
-    public func scanForThermometer() {
-        //  即使当前状态为 已连接 或 蓝牙不可用，蓝牙扫描状态也需要根据外部传入数据改变
-        //  即使当前状态为 已连接，也需要重置 bleThermometer 的 type
-        print("Start to scan ...")
-        Thermometer.shared.scan("")
     }
     
     func bleThermometerDidUpdateState(_ bleThermometer: Thermometer) {
